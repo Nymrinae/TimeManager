@@ -9,3 +9,10 @@
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
+
+alias Server.Repo
+alias Server.Account.User
+
+Repo.insert! %User{first_name: "Sylvain", last_name: "RAYA"}
+Repo.insert! %User{first_name: "Julien", last_name: "FOENKINOS"}
+Repo.insert! %User{first_name: "Warren", last_name: "O CONNOR"}

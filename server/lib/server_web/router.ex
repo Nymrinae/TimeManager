@@ -5,8 +5,15 @@ defmodule ServerWeb.Router do
     plug :accepts, ["json"]
   end
 
+  scope "/", ServerWeb do
+    get "/", DefaultController, :index
+  end
+
   scope "/api", ServerWeb do
     pipe_through :api
+    get "/", DefaultController, :indexAPI
+
+    resources "/users", UserController, except: [:new, :edit]
   end
 
   # Enables LiveDashboard only for development
