@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+  client:
+    build: ./client
+    container_name: client
+    depends_on:
+      - server
+    ports: 
+      - 8080:8080
+  phoenix:
+    build:
+      context: .
+    container_name: server
+    environment:
+      PG_USER: postgres
+      PG_PWD: postgres
+      PG_DB: server_dev
+      PG_PORT: 5432
+      PGHOST: localhost
+    ports:
+      - 4000:4000
+    restart: on-failure
+    depends_on:
+      - db
+  db:
+    image: postgres:9.6
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      PG_DATA: /var/lib/postgresql/data/pgdata
+    restart: always
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+volumes:
+  pgdata:

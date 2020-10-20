@@ -1,4 +1,4 @@
-defmodule Server.MixProject do
+defmodule Server.Mixfile do
   use Mix.Project
 
   def project do
