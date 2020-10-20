@@ -13,12 +13,13 @@ defmodule ServerWeb.Router do
     pipe_through :api
     get "/", DefaultController, :indexAPI
 
-    resources "/users", UserController, except: [:new, :edit]
-
     scope "/clocks" do
       get "/", ClockController, :index
       get "/:id", ClockController, :show
     end
+
+    resources "/users", UserController, except: [:new, :edit]
+    resources "/workingtimes", WorkingTimeController, except: [:new, :edit]
   end
 
   # Enables LiveDashboard only for development
