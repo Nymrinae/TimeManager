@@ -10,7 +10,7 @@ defmodule ServerWeb.ClockView do
 
   def render("show.json", %{clock: clock}) do
     %{
-      data: render_one(clock, ClockView, "clock.json")
+      data: render_many(clock, ClockView, "clock.json")
     }
   end
 
@@ -18,8 +18,7 @@ defmodule ServerWeb.ClockView do
     %{
       id: clock.id,
       time: clock.time,
-      status: clock.status,
-      user: clock.user.id
+      status: clock.status
     }
   end
 end

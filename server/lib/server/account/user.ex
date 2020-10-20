@@ -5,6 +5,7 @@ defmodule Server.Account.User do
   schema "users" do
     field :username, :string
     field :email, :string
+    has_many :clock, Server.Clocks.Clock
 
     timestamps()
   end

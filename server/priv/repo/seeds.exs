@@ -15,10 +15,7 @@ alias Server.Account.User
 alias Server.Clocks.Clock
 
 Repo.insert! %Clock{
-  status: false,
+  status: true,
   time: DateTime.truncate(DateTime.utc_now(), :second),
-  user: %User{
-    email: "sylvain.nymrinae@gmail.com",
-    username: "Nymrinae"
-  }
+  user_id: 51
 }
