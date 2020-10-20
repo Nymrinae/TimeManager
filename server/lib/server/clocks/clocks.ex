@@ -18,7 +18,7 @@ defmodule Server.Clocks do
 
   """
   def list_clocks do
-    Repo.all(Clock)
+    Repo.all(Clock) |> Repo.preload([:user])
   end
 
   @doc """
@@ -35,7 +35,10 @@ defmodule Server.Clocks do
       ** (Ecto.NoResultsError)
 
   """
-  def get_clock!(id), do: Repo.get!(Clock, id)
+  def get_clock!(id) do
+    query = from c in Clock, where: c.user_id == ^id
+    Repo.one(query) |> Repo.preload([:user])
+  end
 
   @doc """
   Creates a clock.
