@@ -12,7 +12,10 @@
 
 alias Server.Repo
 alias Server.Account.User
+alias Server.Clocks.Clock
 
-Repo.insert! %User{first_name: "Sylvain", last_name: "RAYA"}
-Repo.insert! %User{first_name: "Julien", last_name: "FOENKINOS"}
-Repo.insert! %User{first_name: "Warren", last_name: "O CONNOR"}
+Repo.insert! %Clock{
+  status: false,
+  time: DateTime.truncate(DateTime.utc_now(), :second),
+  user: %User{first_name: "Sylvain", last_name: "RAYA"}
+}
