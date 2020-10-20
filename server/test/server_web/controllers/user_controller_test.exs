@@ -1,8 +1,8 @@
 defmodule ServerWeb.UserControllerTest do
   use ServerWeb.ConnCase
 
-  alias Server.Account
-  alias Server.Account.User
+  alias Server.Users
+  alias Server.Users.User
 
   @create_attrs %{
     first_name: "some first_name",

@@ -1,8 +1,8 @@
 defmodule ServerWeb.AdminControllerTest do
   use ServerWeb.ConnCase
 
-  alias Server.Accounts
-  alias Server.Accounts.Admin
+  alias Server.Users
+  alias Server.Users.Admin
 
   @create_attrs %{
     first_: "some first_",
@@ -17,7 +17,7 @@ defmodule ServerWeb.AdminControllerTest do
   @invalid_attrs %{first_: nil, last_name: nil, name: nil}
 
   def fixture(:admin) do
-    {:ok, admin} = Accounts.create_admin(@create_attrs)
+    {:ok, admin} = Users.create_admin(@create_attrs)
     admin
   end
 

@@ -2,7 +2,7 @@ defmodule Server.Clocks.Clock do
   use Ecto.Schema
   import Ecto.Changeset
 
-  alias Server.Account.User
+  alias Server.Users.User
 
   schema "clocks" do
     field :status, :boolean, default: false

@@ -11,7 +11,7 @@
 # and so on) as they will fail if something goes wrong.
 
 alias Server.Repo
-alias Server.Account.User
+alias Server.Users.User
 alias Server.Clocks.Clock
 alias Server.WorkingTimes.WorkingTime
 
