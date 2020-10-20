@@ -6,9 +6,15 @@ defmodule ServerWeb.UserController do
 
   action_fallback ServerWeb.FallbackController
 
-  def index(conn, _params) do
-    users = Account.list_users()
-    render(conn, "index.json", users: users)
+  # Change this to adapt with params
+  # def index(conn, _params) do
+  # users = Account.list_users()
+  # render(conn, "index.json", users: users)
+  # end
+
+  def index(conn, %{"username" => username, "email" => email}) do
+    user = Account.get_user_by_infos(username, email)
+    render(conn, "show.json", user: user)
   end
 
   def create(conn, %{"user" => user_params}) do

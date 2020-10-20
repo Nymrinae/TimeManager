@@ -37,6 +37,11 @@ defmodule Server.Account do
   """
   def get_user!(id), do: Repo.get!(User, id)
 
+  def get_user_by_infos(username, email) do
+    query = from u in User, where: u.username == ^username and u.email == ^email
+    Repo.one(query)
+  end
+
   @doc """
   Creates a user.
 
