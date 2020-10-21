@@ -35,7 +35,15 @@ defmodule Server.WorkingTimes do
       ** (Ecto.NoResultsError)
 
   """
-  def get_working_time!(id), do: Repo.get!(WorkingTime, id)
+  def get_working_time(id) do
+    Repo.get!(WorkingTime, id)
+  end
+
+  def get_working_time_by_queries(id, start_time, end_time) do
+    query = from w in WorkingTime, where: w.user_id == ^id and w.start == ^start_time and w.end == ^end_time
+
+    Repo.all(query)
+  end
 
   @doc """
   Creates a working_time.
@@ -53,6 +61,7 @@ defmodule Server.WorkingTimes do
     %WorkingTime{}
     |> WorkingTime.changeset(attrs)
     |> Repo.insert()
+    |> Repo.preload([:user])
   end
 
   @doc """

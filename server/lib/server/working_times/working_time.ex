@@ -17,5 +17,6 @@ defmodule Server.WorkingTimes.WorkingTime do
     working_time
     |> cast(attrs, [:start, :end])
     |> validate_required([:start, :end])
+    |> cast_assoc(:user)
   end
 end
