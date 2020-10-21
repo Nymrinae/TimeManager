@@ -17,5 +17,6 @@ defmodule Server.Clocks.Clock do
     clock
     |> cast(attrs, [:time, :status])
     |> validate_required([:time, :status])
+    |> cast_assoc(:user)
   end
 end
