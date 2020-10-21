@@ -1,6 +1,7 @@
 defmodule ServerWeb.ClockController do
   use ServerWeb, :controller
 
+  alias Server.Repo
   alias Server.Clocks
   alias Server.Clocks.Clock
 
