@@ -5,7 +5,7 @@ defmodule Server.Users.User do
   schema "users" do
     field :username, :string
     field :email, :string
-    has_many :clock, Server.Clocks.Clock
+    has_one :clock, Server.Clocks.Clock
 
     timestamps()
   end
@@ -15,6 +15,6 @@ defmodule Server.Users.User do
     user
     |> cast(attrs, [:username, :email])
     |> validate_required([:username, :email])
-    |> foreign_key_constraint(:clock, name: "clocks_user_fkey")
+    # |> foreign_key_constraint(:clock, name: "clocks_user_fkey")
   end
 end

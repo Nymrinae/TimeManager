@@ -36,7 +36,7 @@ defmodule Server.Users do
 
   """
   def get_user_by_id(id) do
-    Repo.get!(User, id)
+    Repo.get(User, id)
   end
 
   def get_user_by_infos(username, email) do
@@ -93,11 +93,7 @@ defmodule Server.Users do
 
   """
   def delete_user(%User{} = user) do
-    user
-    |> Ecto.Changeset.change
-    |> Ecto.Changeset.foreign_key_constraint(:clock, name: "clocks_user_fkey")
-    |> Repo.delete(user)
-    |> Repo.preload([:clock])
+    Repo.delete!(user)
   end
 
   @doc """

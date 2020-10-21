@@ -20,9 +20,3 @@ Repo.insert! %Clock{
   time: DateTime.truncate(DateTime.utc_now(), :second),
   user_id: 51
 }
-
-Repo.insert! %WorkingTime{
-  start: DateTime.truncate(DateTime.utc_now(), :second),
-  end: DateTime.truncate(DateTime.utc_now(), :second),
-  user_id: 51
-}

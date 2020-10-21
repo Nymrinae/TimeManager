@@ -52,8 +52,11 @@ defmodule ServerWeb.UserController do
   def delete(conn, %{"id" => id}) do
     user = Users.get_user_by_id(id)
 
-    with {:ok, %User{}} <- Users.delete_user(user) do
-      send_resp(conn, :no_content, "")
+    if user != nil do
+      Users.delete_user(user)
+      send_resp(conn, 200, "Successfully deleted!")
+    else
+      send_resp(conn, 404, "User not found.")
     end
   end
 end
