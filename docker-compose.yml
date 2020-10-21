@@ -17,7 +17,7 @@ services:
       PG_PWD: postgres
       PG_DB: server_dev
       PG_PORT: 5432
-      PGHOST: localhost
+      PG_HOST: localhost
     ports:
       - 4000:4000
     restart: on-failure
