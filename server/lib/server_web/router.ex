@@ -20,7 +20,12 @@ defmodule ServerWeb.Router do
     end
 
     resources "/users", UserController, except: [:new, :edit]
-    resources "/workingtimes", WorkingTimeController, except: [:new, :edit]
+
+    scope "/workingtimes" do
+      get "/", WorkingTimeController, :index
+      post "/:id", WorkingTimeController, :create
+      delete "/:id", WorkingTimeController, :delete
+    end
   end
 
   # Enables LiveDashboard only for development
