@@ -21,6 +21,8 @@ services:
       - database
     depends_on:
       - db
+    networks:
+      - "database"
   db:
     image: "postgres:latest"
     ports:
