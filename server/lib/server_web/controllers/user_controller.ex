@@ -12,9 +12,17 @@ defmodule ServerWeb.UserController do
   # render(conn, "index.json", users: users)
   # end
 
-  def index(conn, %{"username" => username, "email" => email}) do
-    user = Users.get_user_by_infos(username, email)
-    render(conn, "show.json", user: user)
+  def index(conn, params) do
+    username = Map.get(params, "username", nil)
+    email = Map.get(params, "email", nil)
+
+    if username != nil && email != nil do
+      user = Users.get_user_by_infos(username, email)
+      render(conn, "show.json", user: user)
+    else
+      users = Users.list_users()
+      render(conn, "index.json", users: users)
+    end
   end
 
   def create(conn, user_params) do
