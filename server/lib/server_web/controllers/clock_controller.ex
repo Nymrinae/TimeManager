@@ -1,6 +1,7 @@
 defmodule ServerWeb.ClockController do
   use ServerWeb, :controller
 
+  alias Server.Repo
   alias Server.Clocks
   alias Server.Clocks.Clock
 
@@ -11,7 +12,7 @@ defmodule ServerWeb.ClockController do
     render(conn, "index.json", clocks: clocks)
   end
 
-  def create(conn, %{"clock" => clock_params}) do
+  def create(conn, clock_params) do
     with {:ok, %Clock{} = clock} <- Clocks.create_clock(clock_params) do
       conn
       |> put_status(:created)

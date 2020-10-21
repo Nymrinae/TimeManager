@@ -17,7 +17,7 @@ defmodule ServerWeb.UserController do
     render(conn, "show.json", user: user)
   end
 
-  def create(conn, %{"user" => user_params}) do
+  def create(conn, user_params) do
     with {:ok, %User{} = user} <- Users.create_user(user_params) do
       conn
       |> put_status(:created)
