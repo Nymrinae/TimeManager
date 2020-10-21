@@ -16,6 +16,7 @@ defmodule ServerWeb.Router do
     scope "/clocks" do
       get "/", ClockController, :index
       get "/:id", ClockController, :show
+      post "/:id", ClockController, :create
     end
 
     resources "/users", UserController, except: [:new, :edit]
