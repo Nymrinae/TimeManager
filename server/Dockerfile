@@ -7,7 +7,10 @@ RUN mkdir /server
 COPY . /server
 WORKDIR /server
 
-RUN mix local.hex --force
+RUN mix local.hex --force && \
+mix local.rebar --force && \
+mix deps.update --all
+
 RUN mix do compile
 
-CMD ["/server/run.sh"]
+CMD bash run.sh
