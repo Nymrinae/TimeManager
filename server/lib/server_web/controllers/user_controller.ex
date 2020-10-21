@@ -31,10 +31,12 @@ defmodule ServerWeb.UserController do
     render(conn, "show.json", user: user)
   end
 
-  def update(conn, %{"id" => id, "user" => user_params}) do
-    user = Users.get_user_by_id(id)
+  def update(conn, params) do
+    user = Users.get_user_by_id(Map.get(params, "id", ""))
+    username = Map.get(params, "username", user.username)
+    email = Map.get(params, "email", user.email)
 
-    with {:ok, %User{} = user} <- Users.update_user(user, user_params) do
+    with {:ok, %User{} = user} <- Users.update_user(user, %{username: username, email: email}) do
       render(conn, "show.json", user: user)
     end
   end
