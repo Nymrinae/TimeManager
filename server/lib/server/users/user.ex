@@ -16,6 +16,5 @@ defmodule Server.Users.User do
     |> cast(attrs, [:username, :email])
     |> validate_required([:username, :email])
     # |> foreign_key_constraint(:clock_id)
-
   end
 end

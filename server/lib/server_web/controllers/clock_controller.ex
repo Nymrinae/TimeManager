@@ -1,7 +1,6 @@
 defmodule ServerWeb.ClockController do
   use ServerWeb, :controller
 
-  alias Server.Repo
   alias Server.Clocks
   alias Server.Clocks.Clock
 
@@ -13,12 +12,13 @@ defmodule ServerWeb.ClockController do
   end
 
   def create(conn, clock_params) do
-    with {:ok, %Clock{} = clock} <- Clocks.create_clock(clock_params) do
-      conn
-      |> put_status(:created)
-      |> put_resp_header("location", Routes.clock_path(conn, :show, clock))
-      |> render("show.json", clock: clock)
-    end
+    send_resp(conn, 200, "error #{inspect Clocks.create_clock(clock_params)}")
+    # with {:ok, %Clock{} = clock} <- Clocks.create_clock(clock_params) do
+    #   conn
+    #   |> put_status(:created)
+    #   |> put_resp_header("location", Routes.clock_path(conn, :show, clock))
+    #   |> render("show.json", clock: clock)
+    # end
   end
 
   def show(conn, %{"id" => id}) do
