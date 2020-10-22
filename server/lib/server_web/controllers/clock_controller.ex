@@ -12,13 +12,12 @@ defmodule ServerWeb.ClockController do
   end
 
   def create(conn, clock_params) do
-    send_resp(conn, 200, "error #{inspect Clocks.create_clock(clock_params)}")
-    # with {:ok, %Clock{} = clock} <- Clocks.create_clock(clock_params) do
-    #   conn
-    #   |> put_status(:created)
-    #   |> put_resp_header("location", Routes.clock_path(conn, :show, clock))
-    #   |> render("show.json", clock: clock)
-    # end
+    with {:ok, %Clock{} = clock} <- Clocks.create_clock(clock_params) do
+      conn
+      |> put_status(:created)
+      |> put_resp_header("location", Routes.clock_path(conn, :show, clock))
+      |> render("show.json", clock: clock)
+    end
   end
 
   def show(conn, %{"id" => id}) do
