@@ -9,38 +9,35 @@ services:
   #   ports:
   #     - 8080:8080
   phoenix:
-    build:
-      context: ./server
-    container_name: server
+    build: ./server
     environment:
-      PG_USER: postgres
-      PG_PWD: postgres
-      PG_DB: time_manager_dev
-      PG_PORT: 5432
-      PG_HOST: localhost
-      DATABASE_URL: postgres://postgres:postgres@db:5432/time_manager_dev
+        PG_USER: postgres
+        PG_PWD: postgres
+        # PG_DB: postgres
+        PG_HOST: db
     ports:
-      - 4000:4000
-    restart: on-failure
-    depends_on:
-      - db
-    networks:
-      - "database"
-    dns:
-      - 8.8.8.8
-      - 8.8.4.4
-  db:
-    build:
-      context: ./db
+        - "4000:4000"
     networks:
       - database
+    depends_on:
+      - db
+  db:
+    image: "postgres:latest"
     ports:
-      - 5432:5432
-    command: tail -f /dev/null
+        - "5430:5432"
+        # - ./schema.sql:/docker-entrypoint-initdb.d/schema.sql
+        # volumes:
+        # - db-data:/var/lib/postgresql/data
+    environment:
+        POSTGRES_USER: postgres
+        POSTGRES_PASSWORD: postgres
+        POSTGRES_DB: postgres
+    networks:
+      - database
 networks:
   database:
-volumes:
-  postgres-data:
+# volumes:
+#   db-data:
 # POSTGRES_PASSWORD: example
 # POSTGRES_USER: postgres
 # PG_DATA: /var/lib/postgresql/data/pgdata

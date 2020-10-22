@@ -10,9 +10,8 @@
 #   echo "Creating database..."
   # createdb -E UTF-8 $PG_DB -l en_US.UTF-8
   # create general migration file to create all tables
-
-mix ecto.create
-mix ecto.migrate --to 20201021133921
+mix ecto.reset
+mix ecto.migrate
 mix run priv/repo/init_db_seeds.exs
 echo "Database $PG_DB created"
 # fi
