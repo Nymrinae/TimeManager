@@ -21,11 +21,6 @@ services:
       - database
     depends_on:
       - db
-    networks:
-      - "database"
-    dns:
-      - 8.8.8.8
-      - 8.8.4.4
   db:
     image: "postgres:latest"
     ports:
