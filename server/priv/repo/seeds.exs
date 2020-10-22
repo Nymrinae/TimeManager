@@ -18,5 +18,5 @@ alias Server.WorkingTimes.WorkingTime
 Repo.insert! %Clock{
   status: true,
   time: DateTime.truncate(DateTime.utc_now(), :second),
-  user_id: 51
+  user_id: 1
 }
