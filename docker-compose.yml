@@ -15,10 +15,10 @@ services:
     environment:
       PG_USER: postgres
       PG_PWD: postgres
-      PG_DB: time_manager
-      PG_PORT: 5430
-      PG_HOST: db
-      DATABASE_URL: postgres://postgres@db:5430/time_manager
+      PG_DB: time_manager_dev
+      PG_PORT: 5432
+      PG_HOST: localhost
+      DATABASE_URL: postgres://postgres:postgres@db:5432/time_manager_dev
     ports:
       - 4000:4000
     restart: on-failure
@@ -26,18 +26,17 @@ services:
       - db
     networks:
       - "database"
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
   db:
-    image: postgres:9.6-alpine
-    environment:
-      POSTGRES_PASSWORD: postgres
-    command: 'postgres -c "max_connections=200"'
-    restart: always
-    volumes:
-      - postgres-data:/var/lib/postgresql/data
-    ports:
-      - 5430:5432
+    build:
+      context: ./db
     networks:
-      - "database"
+      - database
+    ports:
+      - 5432:5432
+    command: tail -f /dev/null
 networks:
   database:
 volumes:

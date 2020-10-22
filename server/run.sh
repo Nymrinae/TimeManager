@@ -6,15 +6,15 @@
 #   sleep 2
 # done
 
-if [ -z `psql -ATqc "\\list $PG_DB"` ]; then
-  echo "Creating database..."
+# if [ -z `psql -ATqc "\\list $PG_DB"` ]; then
+#   echo "Creating database..."
   # createdb -E UTF-8 $PG_DB -l en_US.UTF-8
   # create general migration file to create all tables
 
-  mix ecto.create
-  # mix run priv/repo/init_db_seeds.exs
-  mix ecto.migrate
-  echo "Database $PG_DB created"
-fi
+mix ecto.create
+mix ecto.migrate --to 20201021133921
+mix run priv/repo/init_db_seeds.exs
+echo "Database $PG_DB created"
+# fi
 
 exec mix phx.server
