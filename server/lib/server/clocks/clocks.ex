@@ -56,7 +56,6 @@ defmodule Server.Clocks do
     %Clock{}
     |> Clock.changeset(attrs)
     |> Repo.insert()
-    |> Repo.preload([:user])
   end
 
   @doc """

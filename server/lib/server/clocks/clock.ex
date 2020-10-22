@@ -18,5 +18,6 @@ defmodule Server.Clocks.Clock do
     |> cast(attrs, [:time, :status])
     |> validate_required([:time, :status])
     |> cast_assoc(:user)
+    # |> foreign_key_constraint(:user_id)
   end
 end
