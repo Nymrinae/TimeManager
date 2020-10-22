@@ -53,9 +53,12 @@ defmodule Server.Clocks do
 
   """
   def create_clock(attrs \\ %{}) do
-    %Clock{}
-    |> Clock.changeset(attrs)
-    |> Repo.insert()
+    payload = attrs |> Map.new(fn {k, v} -> { String.to_atom(k), v} end)
+
+    Ecto.Changeset.change(%Clock{}, payload)
+      |> Ecto.Changeset.put_change(:time, DateTime.truncate(DateTime.utc_now(), :second))
+      |> Ecto.Changeset.put_change(:user_id, String.to_integer(attrs["user_id"]))
+      |> Repo.insert()
   end
 
   @doc """
