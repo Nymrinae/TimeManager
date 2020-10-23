@@ -56,7 +56,7 @@
         >
           <img
             src="../assets/playstore.png"
-            class="h-16 pr-4 bounce-top-icons"
+            class="h-16 pr-4 mt-4 bounce-top-icons"
           />
         </div>
       </div>

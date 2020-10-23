@@ -1,6 +1,12 @@
 import { $axios } from '@/helpers/axiosInstance'
 
-const createUser = async () => {
+const createUser = async ({ username, email}) => {
+  const { data } = await $axios.post('/users', {
+    username,
+    email
+  })
+
+  console.log(data)
 }
 
 const deleteUser = async () => {

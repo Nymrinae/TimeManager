@@ -27,6 +27,7 @@ const config: NuxtConfig = {
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [
+    '@/plugins/axiosAccessor'
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
@@ -47,7 +48,9 @@ const config: NuxtConfig = {
   ],
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
-  axios: {},
+  axios: {
+    baseURL: 'localhost:4000/api'
+  },
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
