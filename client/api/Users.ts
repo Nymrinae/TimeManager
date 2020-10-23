@@ -1,15 +1,17 @@
-const createUser = () => {
+import { $axios } from '@/helpers/axiosInstance'
+
+const createUser = async () => {
 }
 
-const deleteUser = () => {
+const deleteUser = async () => {
 
 }
 
-const getUser = () => {
+const getUser = async () => {
 
 }
 
-const updateUser = () => {
+const updateUser = async () => {
 
 }
 

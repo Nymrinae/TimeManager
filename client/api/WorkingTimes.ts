@@ -1,15 +1,17 @@
-const createWorkingTime = () => {
+import { $axios } from '@/helpers/axiosInstance'
+
+const createWorkingTime = async () => {
 }
 
-const getWorkingTimes = () => {
+const getWorkingTimes = async () => {
   
 }
 
-const updateWorkingTime = () => {
+const updateWorkingTime = async () => {
 
 }
 
-const deleteWorkingTime = () => {
+const deleteWorkingTime = async () => {
 
 }
 
