@@ -23,10 +23,16 @@
 
         <div class="flex w-1/2 justify-end content-center">
           <button
-            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mr-4 rounded"
             @click="$router.push('/login')"
           >
             Login
+          </button>
+          <button
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            @click="$router.push('/register')"
+          >
+            Register
           </button>
         </div>
       </div>
@@ -48,18 +54,25 @@
         <div
           class="flex w-full justify-center md:justify-start pb-24 lg:pb-0 fade-in"
         >
-          <img src="../assets/playstore.png" class="h-16 pr-4 bounce-top-icons" />
+          <img
+            src="../assets/playstore.png"
+            class="h-16 pr-4 bounce-top-icons"
+          />
         </div>
       </div>
 
       <!--Right Col-->
       <div class="w-full xl:w-3/5 py-6 overflow-y-hidden">
-        <img class="w-5/6 mx-auto lg:mr-0  slide-in-bottom-h1" src="../assets/icon.png" />
+        <img
+          class="w-5/6 mx-auto lg:mr-0 slide-in-bottom-h1"
+          src="../assets/icon.png"
+        />
       </div>
 
       <!--Footer-->
       <div class="w-full pt-16 pb-6 text-sm text-center md:text-left fade-in">
-        <span class="text-gray-500 no-underline hover:no-underline">&copy; EPITECH MScPool 2020
+        <span class="text-gray-500 no-underline hover:no-underline"
+          >&copy; EPITECH MScPool 2020
         </span>
       </div>
     </div>
@@ -67,9 +80,10 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
+import { Component, Vue } from "nuxt-property-decorator";
 
-export default Vue.extend({});
+@Component
+export default class IndexPage extends Vue {}
 </script>
 
 <style>
