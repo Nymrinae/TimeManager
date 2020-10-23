@@ -1,36 +1,33 @@
 version: '3'
 
 services:
-  client:
-    build: ./client
-    container_name: client
-    depends_on:
-      - server
-    ports: 
-      - 8080:8080
+  # client:
+  #   build: ./client
+  #   container_name: client
+  #   depends_on:
+  #     - phoenix
+  #   ports:
+  #     - 8080:8080
   phoenix:
-    build:
-      context: .
-    container_name: server
+    build: ./server
     environment:
-      PG_USER: postgres
-      PG_PWD: postgres
-      PG_DB: server_dev
-      PG_PORT: 5432
-      PG_HOST: localhost
+        PG_USER: postgres
+        PG_PWD: postgres
+        PG_DB: postgres
+        PG_HOST: db
     ports:
-      - 4000:4000
-    restart: on-failure
+        - "4000:4000"
+    networks:
+      - database
     depends_on:
       - db
   db:
-    image: postgres:9.6
+    image: "postgres:latest"
+    ports:
+        - "5430:5432"
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      PG_DATA: /var/lib/postgresql/data/pgdata
-    restart: always
-    volumes:
-      - pgdata:/var/lib/postgresql/data
-volumes:
-  pgdata:
+        POSTGRES_PASSWORD: postgres
+    networks:
+      - database
+networks:
+  database:
