@@ -13,7 +13,7 @@ services:
     environment:
         PG_USER: postgres
         PG_PWD: postgres
-        # PG_DB: postgres
+        PG_DB: postgres
         PG_HOST: db
     ports:
         - "4000:4000"
@@ -25,19 +25,9 @@ services:
     image: "postgres:latest"
     ports:
         - "5430:5432"
-        # - ./schema.sql:/docker-entrypoint-initdb.d/schema.sql
-        # volumes:
-        # - db-data:/var/lib/postgresql/data
     environment:
-        POSTGRES_USER: postgres
         POSTGRES_PASSWORD: postgres
-        POSTGRES_DB: postgres
     networks:
       - database
 networks:
   database:
-# volumes:
-#   db-data:
-# POSTGRES_PASSWORD: example
-# POSTGRES_USER: postgres
-# PG_DATA: /var/lib/postgresql/data/pgdata

@@ -2,10 +2,10 @@ use Mix.Config
 
 # Configure your database
 config :server, Server.Repo,
-  username: System.get_env("PG_USER"),
-  password: System.get_env("PG_PWD"),
-  database: System.get_env("PG_DB"),
-  hostname: System.get_env("PG_HOST"),
+  # username: System.get_env("PG_USER"),
+  # password: System.get_env("PG_PWD"),
+  # database: System.get_env("PG_DB"),
+  # hostname: System.get_env("PG_HOST"),
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
 
