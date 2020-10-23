@@ -10,15 +10,17 @@
       <section>
         <h3 class="font-bold text-2xl">Register</h3>
         <p class="text-gray-600 pt-2">Create an account here. Totally free!</p>
+        <p v-if="error" class="mt-4 -mb-4 text-red-700 font-bold text-center"> An error occured. </p>
       </section>
 
-      <section class="mt-10">
-        <form class="flex flex-col" method="POST" action="#">
+      <section class="mt-10" @click="error = false">
+        <div class="flex flex-col">
           <div class="mb-6 pt-3 rounded bg-gray-200">
             <input
               placeholder="Username"
               type="text"
-              id="email"
+              id="username"
+              v-model="username"
               class="input bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-purple-600 transition duration-500 px-3 pb-3"
             />
           </div>
@@ -27,6 +29,7 @@
               placeholder="Email"
               type="text"
               id="email"
+              v-model="email"
               class="input bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-purple-600 transition duration-500 px-3 pb-3"
             />
           </div>
@@ -35,6 +38,7 @@
               placeholder="Password"
               type="password"
               id="password"
+              v-model="password"
               class="input bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-purple-600 transition duration-500 px-3 pb-3"
             />
           </div>
@@ -42,17 +46,18 @@
             <input
               placeholder="Confirm Password"
               type="password"
-              id="password"
+              id="confPassword"
+              v-model="confPassword"
               class="input bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-purple-600 transition duration-500 px-3 pb-3"
             />
           </div>
           <button
             class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 rounded shadow-lg hover:shadow-xl transition duration-200"
-            type="submit"
+            @click="register"
           >
             Register
           </button>
-        </form>
+        </div>
       </section>
     </main>
 
@@ -72,9 +77,32 @@
 
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator"
+import { createUser } from '../api/Users'
 
 @Component
-export default class RegisterPage extends Vue {}
+export default class RegisterPage extends Vue {
+  username: string = 'testfront'
+  email: string = 'testfront@gmail.com'
+  password: string = ''
+  confPassword: string = ''
+  error: boolean = false
+
+  async register() {
+    const { username, email } = this
+
+    if (this.validateForm()) {
+      createUser(username, email)
+    } else {
+      this.error = true
+    }
+  }
+
+  validateForm() {
+    const { username, email } = this
+
+    return username && email?.match(/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$/)
+  }
+}
 </script>
 
 <style scoped>

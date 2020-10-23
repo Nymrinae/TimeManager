@@ -49,7 +49,7 @@ const config: NuxtConfig = {
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {
-    baseURL: 'localhost:4000/api'
+    baseURL: 'http://localhost:4000/api'
   },
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
