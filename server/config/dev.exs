@@ -6,6 +6,10 @@ config :server, Server.Repo,
   # password: System.get_env("PG_PWD"),
   # database: System.get_env("PG_DB"),
   # hostname: System.get_env("PG_HOST"),
+  username: "postgres",
+  password: "postgres",
+  database: "postgres",
+  hostname: "db",
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
 
