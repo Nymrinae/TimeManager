@@ -8,8 +8,8 @@ config :server, Server.Repo,
   # hostname: System.get_env("PG_HOST"),
   username: "postgres",
   password: "postgres",
-  database: "postgres",
-  hostname: "db",
+  database: "server_dev",
+  hostname: "localhost",
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
 

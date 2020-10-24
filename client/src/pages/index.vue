@@ -1,8 +1,8 @@
 <template>
   <div
-    class="h-screen pb-14 bg-right bg-cover"
-    style="background-image: url('bg.svg')"
+    class="h-screen w-screen pb-14 bg-right bg-cover"
   >
+    <!-- style="background-image: url('https://res.cloudinary.com/jerrick/image/upload/c_scale,q_auto/prq9m5uhhmjjtfnlay6b.jpg')" -->
     <!--Nav-->
     <div class="w-full container mx-auto p-6">
       <div class="w-full flex items-center justify-between">
@@ -70,7 +70,7 @@
       </div>
 
       <!--Footer-->
-      <div class="w-full pt-16 pb-6 text-sm text-center md:text-left fade-in">
+      <div class="w-full text-sm text-center md:text-left fade-in">
         <span class="text-gray-500 no-underline hover:no-underline"
           >&copy; EPITECH MScPool 2020
         </span>

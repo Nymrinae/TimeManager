@@ -1,31 +1,39 @@
 import { $axios } from '@/helpers/axiosInstance'
 
-const createUser = async (username: string, email: string) => {
-  const { data } = await $axios.post('/users', {
-    username,
-    email
-  })
+const getUserById = async (userId: number) => {
+  const { data } = await $axios.get(`/users/${userId}`)
 
   console.log(data)
 }
 
-const deleteUser = async () => {
-
-}
-
-const getUser = async () => {
-  const { data } = await $axios.get('/users')
+const getUserByInfos = async (userInfos: UserInfo) => {
+  const { username, email } = userInfos
+  const { data } = await $axios.get(`/users?username=${username}&email=${email}`)
 
   console.log(data)
 }
 
-const updateUser = async () => {
 
+const createUser = async (userInfos: UserInfo) => {
+  const { data } = await $axios.post('/users', userInfos)
+
+  console.log(data)
+}
+
+const deleteUser = async (userId: number) => {
+  const { data } = await $axios.delete(`/users/${userId}`)
+
+  console.log(data)
+}
+
+const updateUser = async (userId: number, userInfos: UserInfo) => {
+  const { data } = await $axios.put(`/users/${userId}`, userInfos)
 }
 
 export {
   createUser,
   deleteUser,
-  getUser,
+  getUserById,
+  getUserByInfos,
   updateUser
 }

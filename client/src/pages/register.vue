@@ -10,10 +10,14 @@
       <section>
         <h3 class="font-bold text-2xl">Register</h3>
         <p class="text-gray-600 pt-2">Create an account here. Totally free!</p>
+        <p v-if="success" class="mt-4 -mb-4 text-green-700 font-bold text-center">
+          Account successfully created!
+          <nuxt-link to="/login" class="font-bold hover:underline text-black"> Login here </nuxt-link>
+        </p>
         <p v-if="error" class="mt-4 -mb-4 text-red-700 font-bold text-center"> An error occured. </p>
       </section>
 
-      <section class="mt-10" @click="error = false">
+      <section class="mt-10">
         <div class="flex flex-col">
           <div class="mb-6 pt-3 rounded bg-gray-200">
             <input
@@ -85,22 +89,26 @@ export default class RegisterPage extends Vue {
   email: string = 'testfront@gmail.com'
   password: string = ''
   confPassword: string = ''
+  success: boolean = false
   error: boolean = false
 
   async register() {
-    const { username, email } = this
+    const { username, email, password } = this
 
     if (this.validateForm()) {
-      createUser(username, email)
+      await createUser({ username, email, password })
+      this.success = true
     } else {
       this.error = true
     }
   }
 
   validateForm() {
-    const { username, email } = this
+    const { username, email, password, confPassword } = this
 
-    return username && email?.match(/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$/)
+    return username
+      && email?.match(/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$/)
+      && password === confPassword
   }
 }
 </script>
