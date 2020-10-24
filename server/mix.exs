@@ -44,7 +44,8 @@ defmodule Server.Mixfile do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       {:ex_doc, "~> 0.13", only: :dev},
-      {:cors_plug, "~> 2.0"}
+      {:cors_plug, "~> 2.0"},
+      {:guardian, "~> 0.14"}
     ]
   end
 
