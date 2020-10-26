@@ -43,7 +43,8 @@ defmodule Server.Mixfile do
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
-      {:ex_doc, "~> 0.13", only: :dev}
+      {:ex_doc, "~> 0.13", only: :dev},
+      {:cors_plug, "~> 2.0"}
     ]
   end
 

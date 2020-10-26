@@ -2,6 +2,7 @@ defmodule ServerWeb.Router do
   use ServerWeb, :router
 
   pipeline :api do
+    plug CORSPlug, origin: "*"
     plug :accepts, ["json"]
   end
 
