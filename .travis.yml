@@ -1,5 +1,5 @@
 env:
-  DOCKER_COMPOSE_VERSION: 1.26
+  DOCKER_COMPOSE_VERSION: 1.26.0
 before_install:
   - sudo apt-get update
   - sudo rm /usr/local/bin/docker-compose
