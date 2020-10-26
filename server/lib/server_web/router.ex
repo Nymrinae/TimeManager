@@ -3,7 +3,13 @@ defmodule ServerWeb.Router do
 
   pipeline :api do
     plug CORSPlug, origin: "*"
+    plug Guardian.Plug.VerifyHeader, realm: "Bearer"
+    plug Guardian.Plug.LoadResource
     plug :accepts, ["json"]
+  end
+
+  pipeline :auth do
+    plug Guardian.Plug.EnsureAuthenticated
   end
 
   scope "/", ServerWeb do
@@ -20,6 +26,7 @@ defmodule ServerWeb.Router do
       post "/:user_id", ClockController, :create
     end
 
+    pipe_through :auth
     resources "/users", UserController, except: [:new, :edit]
 
     scope "/workingtimes" do
