@@ -1,13 +1,13 @@
 version: '3'
 
 services:
-  # client:
-  #   build: ./client
-  #   container_name: client
-  #   depends_on:
-  #     - phoenix
-  #   ports:
-  #     - 8080:8080
+  client:
+    build: ./client
+    container_name: client
+    depends_on:
+      - phoenix
+    # ports:
+    #   - 8080:8080
   phoenix:
     build: ./server
     environment:

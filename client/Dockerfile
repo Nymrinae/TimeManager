@@ -1,4 +1,4 @@
-FROM node:13.12.0-strech
+FROM node:latest
 
 RUN apt-get update -y && apt-get install -y
 
