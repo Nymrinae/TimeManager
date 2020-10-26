@@ -13,9 +13,8 @@ const getUserByInfos = async (userInfos: UserInfo) => {
   console.log(data)
 }
 
-
 const createUser = async (userInfos: UserInfo) => {
-  const { data } = await $axios.post('/users', userInfos)
+  const { data } = await $axios.post('/register', userInfos)
 
   console.log(data)
 }

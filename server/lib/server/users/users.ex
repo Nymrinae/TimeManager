@@ -44,6 +44,19 @@ defmodule Server.Users do
     Repo.one(query)
   end
 
+  def login_user(email, password) do
+    case Repo.get_by(User, email: email) do
+      nil ->
+        {:error, :not_found}
+      user ->
+        if Comeonin.Bcrypt.checkpw(password, user.password) do
+          {:ok, user}
+        else
+          {:error, :unauthorized}
+        end
+    end
+  end
+
   @doc """
   Creates a user.
 

@@ -108,6 +108,7 @@ export default class RegisterPage extends Vue {
 
     return username
       && email?.match(/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$/)
+      && password.length >= 5 && password.length <= 16
       && password === confPassword
   }
 }
