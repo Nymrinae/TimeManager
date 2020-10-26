@@ -1,0 +1,5 @@
+deploy:
+  - provider: script
+    script: bash docker-compose up --build
+    on:
+      branch: test_travis
