@@ -15,13 +15,20 @@ defmodule Server.Users.User do
   @doc false
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [:username, :email])
-    |> validate_required([:username, :email])
+    |> cast(attrs, [:username, :email, :password])
+    |> validate_required([:username, :email, :password])
     |> validate_changeset
   end
 
-  defp validate_changeset(struct) do
-    struct
+  def register_changeset(user, params \\ %{}) do
+    user
+    |> cast(params, [:username, :email, :password])
+    |> validate_required([:username, :email, :password])
+    |> validate_changeset
+  end
+
+  defp validate_changeset(user) do
+    user
       |> validate_length(:email, min: 5, max: 255)
       |> validate_format(:email, ~r/@/, [message: "Must be a valid email"])
       |> unique_constraint(:email)
@@ -32,7 +39,7 @@ defmodule Server.Users.User do
   defp generate_password_hash(changeset) do
     case changeset do
       %Ecto.Changeset{valid?: true, changes: %{password: password}} ->
-        put_change(changeset, :password_hash, Comeonin.Bcrypt.hashpwsalt(password))
+        put_change(changeset, :password, Comeonin.Bcrypt.hashpwsalt(password))
       _ ->
         changeset
     end

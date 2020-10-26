@@ -20,6 +20,9 @@ defmodule ServerWeb.Router do
     pipe_through :api
     get "/", DefaultController, :indexAPI
 
+    post "/login", AuthController, :login
+    post "/register", AuthController, :register
+
     scope "/clocks" do
       get "/", ClockController, :index
       get "/:id", ClockController, :show

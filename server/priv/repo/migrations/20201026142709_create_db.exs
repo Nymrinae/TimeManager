@@ -5,6 +5,7 @@ defmodule Server.Repo.Migrations.CreateDB do
     create_if_not_exists table(:users) do
       add :username, :string
       add :email, :string
+      add :password, :string
 
       timestamps()
     end
