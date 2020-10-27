@@ -25,6 +25,12 @@ const deleteUser = async (userId: number) => {
   console.log(data)
 }
 
+const loginUser = async (userInfos: UserInfo) => {
+  const { data } = await $axios.post('/login', userInfos)
+
+  return data.token
+}
+
 const updateUser = async (userId: number, userInfos: UserInfo) => {
   const { data } = await $axios.put(`/users/${userId}`, userInfos)
 }
@@ -34,5 +40,6 @@ export {
   deleteUser,
   getUserById,
   getUserByInfos,
+  loginUser,
   updateUser
 }

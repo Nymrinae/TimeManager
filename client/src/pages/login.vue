@@ -12,36 +12,37 @@
         <p class="text-gray-600 pt-2">
           Already registered ? Log in to your account here
         </p>
+        <p v-if="error" class="mt-4 -mb-4 text-red-700 font-bold text-center"> Incorrect credentials. Please retry. </p>
       </section>
 
       <section class="mt-10">
-        <form class="flex flex-col" method="POST" action="#">
-          <div class="mb-6 pt-3 rounded bg-gray-200">
-            <input
-              type="text"
-              id="email"
-              placeholder="Email"
-              class="bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-purple-600 transition duration-500 px-3 pb-3"
-            />
-          </div>
-          <div class="mb-6 pt-3 rounded bg-gray-200">
-            <input
-              type="password"
-              id="password"
-              placeholder="Password"
-              class="bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-purple-600 transition duration-500 px-3 pb-3"
-            />
-          </div>
-          <!-- <div class="flex justify-end">
-                    <a href="#" class="text-sm text-blue-600 hover:text-blue-700 hover:underline mb-6">Forgot your password?</a>
-                </div> -->
-          <button
-            class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 rounded shadow-lg hover:shadow-xl transition duration-200"
-            type="submit"
-          >
-            Log In
-          </button>
-        </form>
+        <div class="mb-6 pt-3 rounded bg-gray-200">
+          <input
+            type="text"
+            id="email"
+            placeholder="Email"
+            v-model="email"
+            class="bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-purple-600 transition duration-500 px-3 pb-3"
+          />
+        </div>
+        <div class="mb-6 pt-3 rounded bg-gray-200">
+          <input
+            type="password"
+            id="password"
+            placeholder="Password"
+            v-model="password"
+            class="bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-purple-600 transition duration-500 px-3 pb-3"
+          />
+        </div>
+        <!-- <div class="flex justify-end">
+                  <a href="#" class="text-sm text-blue-600 hover:text-blue-700 hover:underline mb-6">Forgot your password?</a>
+              </div> -->
+        <button
+          class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 rounded shadow-lg hover:shadow-xl transition duration-200"
+          @click="login"
+        >
+          Log In
+        </button>
       </section>
     </main>
 
@@ -61,9 +62,35 @@
 
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator"
+import { loginUser } from '../api/Users'
 
 @Component
-export default class LoginPage extends Vue {}
+export default class LoginPage extends Vue {
+  email: string = ''
+  password: string = ''
+  error: boolean = false
+
+  async login() {
+    const { email, password } = this
+
+    if (this.validateForm()) {
+      try {
+        const token = await loginUser({ email, password })
+
+        this.$axios.setToken(token, 'Bearer')
+        this.$router.replace('/dashboard')
+      } catch(e) {
+        this.error = true
+      }
+    } else {
+      this.error = true
+    }
+  }
+
+  validateForm() {
+    return this.email.length && this.password.length
+  }
+}
 </script>
 
 <style scoped>

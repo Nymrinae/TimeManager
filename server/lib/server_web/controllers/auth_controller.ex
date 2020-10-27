@@ -15,7 +15,7 @@ defmodule ServerWeb.AuthController do
       {:error, _reason} ->
         conn
         |> put_status(401)
-        |> render("error.json", message: "Could not login")
+        |> render("error.json")
     end
   end
 

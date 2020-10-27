@@ -20,4 +20,10 @@ defmodule ServerWeb.AuthView do
       message: "You are successfully logged in!"
     }
   end
+
+  def render("error.json") do
+    %{
+      status: :bad_request
+    }
+  end
 end
