@@ -1,13 +1,12 @@
 <template>
+  <div> test </div>
 </template>
 
 <script lang="ts">
-import { Vue, Component } from 'nuxt-property-decorator'
+import { Component, Vue } from "nuxt-property-decorator";
 
-@Component
-export default class DashboardPage extends Vue {
-
-}
+@Component({ layout: 'dashboard' })
+export default class DashboardPage extends Vue {}
 </script>
 
 <style scoped>
