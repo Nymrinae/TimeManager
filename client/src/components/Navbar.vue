@@ -9,7 +9,7 @@
         <div class="inline-block lg:hidden flex items-center mr-4">
           <button
             class="hover:text-blue-500 hover:border-white focus:outline-none navbar-burger"
-            @click="toggleSidebar"
+            @click="setSidebarState"
           >
             <svg
               class="h-5 w-5"
@@ -24,7 +24,7 @@
         </div>
 
         <!-- search bar -->
-        <div class="relative text-gray-600">
+        <!-- <div class="relative text-gray-600">
           <input
             type="search"
             name="serch"
@@ -51,7 +51,7 @@
               />
             </svg>
           </button>
-        </div>
+        </div> -->
       </div>
 
       <!-- right navbar -->
@@ -69,31 +69,23 @@
           />
         </svg>
         <img
-          src="https://a7sas.net/wp-content/uploads/2019/07/4060.jpeg"
+          src="https://eu.ui-avatars.com/api/?name=Nymrinae"
           class="w-12 h-12 rounded-full shadow-lg"
-          @click="dropDownOpen = !dropDownOpen"
         />
       </div>
     </div>
-
-    <!-- dropdown menu -->
-    <div
-      class="absolute bg-gray-100 border border-t-0 shadow-xl text-gray-700 rounded-b-lg w-48 bottom-10 right-0 mr-6"
-      :class="dropDownOpen ? '' : 'hidden'"
-    >
-      <a href="#" class="block px-4 py-2 hover:bg-gray-200">Account</a>
-      <a href="#" class="block px-4 py-2 hover:bg-gray-200">Settings</a>
-      <a href="#" class="block px-4 py-2 hover:bg-gray-200">Logout</a>
-    </div>
-    <!-- dropdown menu end -->
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "nuxt-property-decorator";
+import { Component, Vue, namespace } from "nuxt-property-decorator";
+
+const AppModule = namespace('app')
 
 @Component
-export default class Navbar extends Vue {}
+export default class Navbar extends Vue {
+  @AppModule.Mutation setSidebarState
+}
 </script>
 
 <style scoped>
