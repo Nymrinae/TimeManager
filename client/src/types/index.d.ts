@@ -7,5 +7,7 @@ type UserInfo = {
 type NavLinkProperties = {
   id: number,
   name: string,
-  to: string
+  logo?: string,
+  to: string,
+  scope: 'User' | 'Manager' | 'Admin'
 }
