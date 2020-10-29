@@ -1,8 +1,7 @@
 const navLinks: NavLinkProperties[] = [
   {
     id: 1,
-    name: 'My Dashboard',
-    logo: 'dashboard',
+    name: 'Dashboard',
     to: '/dashboard',
     scope: 'User'
   },
@@ -14,10 +13,23 @@ const navLinks: NavLinkProperties[] = [
   },
   {
     id: 3,
+    name: 'Logout',
+    to: 'logout',
+    scope: 'User'
+  },
+  {
+    id: 4,
     name: 'View Members',
     to: 'members',
     logo: 'users',
     scope: 'Manager'
+  },
+  {
+    id: 5,
+    name: 'View Users',
+    to: 'users',
+    logo: 'users',
+    scope: 'Admin'
   }
 ]
 
