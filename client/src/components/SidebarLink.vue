@@ -5,8 +5,9 @@
       :key="link.id"
       class="w-full flex items-center text-blue-400 h-10 pl-4 hover:bg-gray-200 rounded-lg cursor-pointer"
       :class="{ 'bg-gray-200': $route.name === link.name.toLowerCase() }"
-  >
-    <img
+      @click="$router.push(link.to)"
+    >
+      <img
         :src="require(`../assets/icons/${link.logo || link.name.toLowerCase()}.svg`)"
         class="h-4 w-4 mr-4 fill-current"
       >
