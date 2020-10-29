@@ -7,11 +7,7 @@
         class="object-cover object-center rounded-full visible group-hover:hidden ml-16 mb-4 w-24 h-24"
       />
       <p class="pl-4 text-sm font-semibold mb-1">NYMRINAE</p>
-      <SidebarLink
-        v-for="userLink in userLinks"
-        :key="userLink.id"
-        :sidebarLink="userLink"
-      />
+      <SidebarLink scope="User" />
     </div>
   </div>
 </template>
@@ -22,6 +18,7 @@ import navLinks from '../config/navLinks'
 
 @Component
 export default class UserProfile extends Vue {
+  // this is bullshit for testing purposes, need to refactor when roles will be here on server
   userLinks: NavLinkProperties[] = navLinks.filter(link => link.scope === 'User')
 }
 </script>

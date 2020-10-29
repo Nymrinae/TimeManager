@@ -10,22 +10,22 @@
       <p class="font-semibold text-3xl text-blue-400 pl-4">Time Manager</p>
     </div>
 
-    <UserProfile />
+    <div class="mb-4 px-4">
+      <img
+        src="https://eu.ui-avatars.com/api/?name=Nymrinae"
+        alt="lovely avatar"
+        class="object-cover object-center rounded-full visible group-hover:hidden ml-16 mb-8 w-24 h-24"
+      />
+      <p class="pl-4 text-sm font-semibold mb-1">NYMRINAE</p>
+      <SidebarLink scope="User" />
+    </div>
     <div class="mb-4 px-4">
       <p class="pl-4 text-sm font-semibold mb-1">MANAGE YOUR TEAM</p>
-      <SidebarLink
-        v-for="link in managerLinks"
-        :key="link.id"
-        :sidebarLink="link"
-      />
+      <SidebarLink scope="Manager" />
     </div>
     <div class="mb-4 px-4">
       <p class="pl-4 text-sm font-semibold mb-1">MANAGE USERS</p>
-      <SidebarLink
-        v-for="link in adminLinks"
-        :key="link.id"
-        :sidebarLink="link"
-      />
+      <SidebarLink scope="Admin" />
     </div>
   </div>
 </template>
@@ -40,7 +40,5 @@ const AppModule = namespace('app')
 export default class Sidebar extends Vue {
   @AppModule.State sidebarOpen
 
-  managerLinks: NavLinkProperties[] = navLinks.filter(link => link.scope === 'Manager')
-  adminLinks: NavLinkProperties[] = navLinks.filter(link => link.scope === 'Admin')
 }
 </script>
