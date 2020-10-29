@@ -4,7 +4,7 @@
     :class="{ 'bg-gray-200': this.$route.name === sidebarLink.name.toLowerCase() }"
   >
     <img
-      :src="require(`../assets/icons/${this.sidebarLink.name.toLowerCase()}.svg`)"
+      :src="require(`../assets/icons/${this.sidebarLink.logo || this.sidebarLink.name.toLowerCase()}.svg`)"
       class="h-4 w-4 mr-4 fill-current"
     >
     <span class="text-gray-700"> {{ sidebarLink.name }} </span>

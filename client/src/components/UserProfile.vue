@@ -22,7 +22,7 @@ import navLinks from '../config/navLinks'
 
 @Component
 export default class UserProfile extends Vue {
-  userLinks: NavLinkProperties[] = navLinks
+  userLinks: NavLinkProperties[] = navLinks.filter(link => link.scope === 'User')
 }
 </script>
 
