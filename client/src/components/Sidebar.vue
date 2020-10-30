@@ -20,7 +20,7 @@
       <SidebarLink scope="User" />
     </div>
     <div class="mb-4 px-4">
-      <p class="pl-4 text-sm font-semibold mb-1">MANAGE YOUR TEAM</p>
+      <p class="pl-4 text-sm font-semibold mb-1">MANAGE TEAM</p>
       <SidebarLink scope="Manager" />
     </div>
     <div class="mb-4 px-4">
