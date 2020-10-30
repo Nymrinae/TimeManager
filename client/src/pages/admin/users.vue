@@ -1,29 +1,4 @@
 <template>
-  <!-- <table class="table-auto w-full border">
-    <thead>
-      <tr>
-        <th class="border px-4 py-2">ID</th>
-        <th class="border px-4 py-2">Username</th>
-        <th class="border px-4 py-2">Email</th>
-        <th class="border px-4 py-2">Role</th>
-        <th class="border px-4 py-2">Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr v-for="i in 15"
-        :key="i"
-      >
-        <td class="border px-4 py-2">1</td>
-        <td class="border px-4 py-2">Nymrinae</td>
-        <td class="border px-4 py-2">sylvain.nymrinae@gmail.com</td>
-        <td class="border px-4 py-2">Admin</td>
-        <td class="border px-4 py-2">
-          <span> View Dashboard </span>
-          <span> Delete </span>
-        </td>
-      </tr>
-    </tbody>
-  </table> -->
   <table class="border-collapse w-full">
     <thead>
       <tr>
@@ -37,30 +12,36 @@
     </thead>
     <tbody>
       <tr
-        v-for="i in 25"
-        :key="i"
+        v-for="{ id, username, email, role } in filteredUsers"
+        :key="id"
         class="bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0"
       >
         <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
           <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">ID</span>
-          {{ i }}
+          {{ id }}
         </td>
         <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
           <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Username</span>
-          Nymrinae
+          {{ username }}
         </td>
         <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
           <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Email</span>
-          sylvain.nymrinae@gmail.com
+          {{ email }}
         </td>
         <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
           <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Role</span>
-          {{ ['User', 'Manager', 'Admin'][Math.floor(Math.random() * 3)] }}
+          {{ role }}
         </td>
         <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
           <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Actions</span>
-          <a href="#" class="text-blue-400 hover:text-blue-600 underline">Edit</a>
-          <a href="#" class="text-blue-400 hover:text-blue-600 underline pl-6">Remove</a>
+          <button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
+            <img src="@/assets/icons/edit.svg" class="fill-current w-4 h-4 mr-2" style="display: inline-block" />
+            <span> Edit </span>
+          </button>
+          <button class="bg-transparent hover:bg-red-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
+            <img src="@/assets/icons/clear.svg" class="fill-current w-4 h-4 mr-2" style="display: inline-block" />
+            <span> Delete </span>
+          </button>
         </td>
       </tr>
     </tbody>
@@ -68,11 +49,29 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component } from 'nuxt-property-decorator'
+import { Vue, Component, namespace } from 'nuxt-property-decorator'
+
+const AppModule = namespace('app')
 
 @Component({ layout: 'dashboard' })
 export default class Users extends Vue {
+  @AppModule.State searchedUser
   categories = ['ID', 'Username', 'Email', 'Role', 'Actions']
+
+  get filteredUsers() {
+    return this.users.filter(u => u.username.toLowerCase().indexOf(this.searchedUser.toLowerCase()) != -1)
+  }
+
+  users = [
+    {  id: 1, username: 'Nymrinae', email: 'menfou@gmail.com', role: 'Admin' },
+    {  id: 2, username: 'Seraphae', email: 'menfou@gmail.com', role: 'User' },
+    {  id: 3, username: 'Saphyrae', email: 'menfou@gmail.com', role: 'User' },
+    {  id: 4, username: 'Test', email: 'menfou@gmail.com', role: 'User' },
+    {  id: 5, username: 'Pseudo', email: 'menfou@gmail.com', role: 'User' },
+    {  id: 6, username: 'Irelia', email: 'menfou@gmail.com', role: 'Manager' },
+    {  id: 7, username: 'Renekton', email: 'menfou@gmail.com', role: 'Manager' },
+    {  id: 8, username: 'Fiora', email: 'menfou@gmail.com', role: 'User' }
+  ]
 }
 </script>
 
