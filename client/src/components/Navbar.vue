@@ -9,7 +9,7 @@
         <div class="inline-block lg:hidden flex items-center mr-4">
           <button
             class="hover:text-blue-500 hover:border-white focus:outline-none navbar-burger"
-            @click="setSidebarState"
+            @click="changeSidebarState"
           >
             <svg
               class="h-5 w-5"
@@ -84,7 +84,7 @@ const AppModule = namespace('app')
 
 @Component
 export default class Navbar extends Vue {
-  @AppModule.Mutation setSidebarState
+  @AppModule.Mutation changeSidebarState
 }
 </script>
 
