@@ -8,26 +8,33 @@ const navLinks: NavLinkProperties[] = [
   {
     id: 2,
     name: 'Settings',
-    to: 'settings',
+    to: '/settings',
     scope: 'User'
   },
   {
     id: 3,
     name: 'Logout',
-    to: 'logout',
+    to: '/logout',
     scope: 'User'
   },
   {
     id: 4,
     name: 'View Members',
-    to: 'members',
+    to: '/team/members',
     logo: 'users',
     scope: 'Manager'
   },
   {
     id: 5,
+    name: 'Create User',
+    to: '/admin/user',
+    logo: 'user',
+    scope: 'Admin',
+  },
+  {
+    id: 6,
     name: 'View Users',
-    to: 'users',
+    to: '/admin/users',
     logo: 'users',
     scope: 'Admin'
   }
