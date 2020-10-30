@@ -63,14 +63,14 @@ export default class Users extends Vue {
   }
 
   users = [
-    {  id: 1, username: 'Nymrinae', email: 'menfou@gmail.com', role: 'Admin' },
-    {  id: 2, username: 'Seraphae', email: 'menfou@gmail.com', role: 'User' },
-    {  id: 3, username: 'Saphyrae', email: 'menfou@gmail.com', role: 'User' },
-    {  id: 4, username: 'Test', email: 'menfou@gmail.com', role: 'User' },
-    {  id: 5, username: 'Pseudo', email: 'menfou@gmail.com', role: 'User' },
-    {  id: 6, username: 'Irelia', email: 'menfou@gmail.com', role: 'Manager' },
-    {  id: 7, username: 'Renekton', email: 'menfou@gmail.com', role: 'Manager' },
-    {  id: 8, username: 'Fiora', email: 'menfou@gmail.com', role: 'User' }
+    { id: 1, username: 'Nymrinae', email: 'menfou@gmail.com', role: 'Admin', team: 'None' },
+    { id: 2, username: 'Seraphae', email: 'menfou@gmail.com', role: 'User', team: 'None' },
+    { id: 3, username: 'Saphyrae', email: 'menfou@gmail.com', role: 'User', team: 'None' },
+    { id: 4, username: 'Test', email: 'menfou@gmail.com', role: 'User', team: 'None' },
+    { id: 5, username: 'Pseudo', email: 'menfou@gmail.com', role: 'User', team: 'None' },
+    { id: 6, username: 'Irelia', email: 'menfou@gmail.com', role: 'Manager', team: 'None' },
+    { id: 7, username: 'Renekton', email: 'menfou@gmail.com', role: 'Manager', team: 'None' },
+    { id: 8, username: 'Fiora', email: 'menfou@gmail.com', role: 'User', team: 'None' }
   ]
 }
 </script>
