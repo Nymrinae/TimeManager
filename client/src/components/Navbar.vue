@@ -3,9 +3,7 @@
     <div
       class="w-full h-20 px-6 bg-gray-100 border-b flex items-center justify-between"
     >
-      <!-- left navbar -->
       <div class="flex">
-        <!-- mobile hamburger -->
         <div class="inline-block lg:hidden flex items-center mr-4">
           <button
             class="hover:text-blue-500 hover:border-white focus:outline-none navbar-burger"
@@ -23,13 +21,14 @@
           </button>
         </div>
 
-        <!-- search bar -->
-        <!-- <div class="relative text-gray-600">
+        <div v-if="$route.path === '/admin/users'" class="relative text-gray-600">
           <input
             type="search"
             name="serch"
-            placeholder="Search products..."
+            placeholder="Search user..."
+            v-model="user"
             class="bg-white h-10 w-full xl:w-64 px-5 rounded-lg border text-sm focus:outline-none"
+            @keyup="searchUser(user)"
           />
           <button type="submit" class="absolute right-0 top-0 mt-3 mr-4">
             <svg
@@ -51,10 +50,9 @@
               />
             </svg>
           </button>
-        </div> -->
+        </div>
       </div>
 
-      <!-- right navbar -->
       <div class="flex items-center relative">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -85,6 +83,9 @@ const AppModule = namespace('app')
 @Component
 export default class Navbar extends Vue {
   @AppModule.Mutation changeSidebarState
+  @AppModule.Mutation searchUser
+
+  user: string = ''
 }
 </script>
 
