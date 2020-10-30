@@ -7,7 +7,7 @@ import { Module, VuexModule, VuexMutation } from 'nuxt-property-decorator'
 export default class AppModule extends VuexModule {
   sidebarOpen: boolean = false
 
-  @VuexMutation setSidebarState() {
+  @VuexMutation changeSidebarState() {
     this.sidebarOpen = !this.sidebarOpen
   }
 }
