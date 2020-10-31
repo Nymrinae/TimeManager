@@ -1,5 +1,7 @@
 <template>
-  <div> Settings </div>
+  <div>
+    <Header message="User Settings" />
+  </div>
 </template>
 
 <script lang="ts">

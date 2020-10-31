@@ -1,5 +1,7 @@
 <template>
-  <div> Admin can create an User here </div>
+  <div>
+    <Header message="Create User" />
+  </div>
 </template>
 
 <script lang="ts">

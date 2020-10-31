@@ -1,5 +1,7 @@
 <template>
-  <div> Teams Page </div>
+  <div>
+    <Header message="Manage Teams" />
+  </div>
 </template>
 
 <script lang="ts">

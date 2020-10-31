@@ -1,5 +1,7 @@
 <template>
-  <div> test </div>
+  <div>
+    <Header message="Hello Nymrinae!" />
+  </div>
 </template>
 
 <script lang="ts">
