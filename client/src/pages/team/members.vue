@@ -1,4 +1,7 @@
 <template>
+  <div>
+    <Header message="Members of your team" />
+  </div>
 </template>
 
 <script lang="ts">
