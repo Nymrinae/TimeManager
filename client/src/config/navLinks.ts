@@ -26,20 +26,13 @@ const navLinks: NavLinkProperties[] = [
   },
   {
     id: 5,
-    name: 'Create User',
-    to: '/admin/user',
-    logo: 'user',
-    scope: 'Admin',
-  },
-  {
-    id: 6,
     name: 'View Users',
     to: '/admin/users',
     logo: 'users',
     scope: 'Admin'
   },
   {
-    id: 7,
+    id: 6,
     name: 'View Teams',
     to: '/admin/teams',
     logo: 'users',
