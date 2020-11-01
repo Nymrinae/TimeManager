@@ -9,6 +9,13 @@
     >
       Working
     </button>
+    <button
+      v-if="$route.path === '/admin/users'"
+      class="bg-green-500 hover:bg-green-600 focus:outline-none rounded-lg px-6 py-2 text-white font-semibold shadow"
+      @click="changeCreateUserState"
+    >
+      Create New User
+    </button>
   </div>
 </template>
 
@@ -19,6 +26,7 @@ const AppModule = namespace('app')
 
 @Component
 export default class Header extends Vue {
+  @AppModule.Mutation changeCreateUserState
   @Prop() message!: string
 
   working: boolean = false
