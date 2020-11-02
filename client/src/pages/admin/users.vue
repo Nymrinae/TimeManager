@@ -44,11 +44,11 @@
               <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Actions</span>
               <button class="px-5 py-2 border-blue-500 border text-blue-500 text-xs rounded transition duration-300 hover:bg-blue-700 hover:text-white focus:outline-none">
                 <img src="@/assets/icons/edit.svg" class="w-4 h-4 mr-2" style="display: inline-block" />
-                <span> Edit </span>
+                <span class="font-semibold"> Edit </span>
               </button>
               <button class="px-5 py-2 border-red-500 border text-red-500 text-xs rounded transition duration-300 hover:bg-red-700 hover:text-white focus:outline-none">
                 <img src="@/assets/icons/clear.svg" class="w-4 h-4 mr-2" style="display: inline-block" />
-                <span> Delete </span>
+                <span class="font-semibold"> Delete </span>
               </button>
             </td>
           </tr>
