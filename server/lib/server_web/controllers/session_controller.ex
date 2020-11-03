@@ -13,9 +13,18 @@ defmodule ServerWeb.SessionController do
     end
   end
 
-  def login(conn, %{"user" => %{"username" => username, "password" => password}}) do
-    Users.authenticate_user(username, password)
-    |> login_reply(conn)
+  def login(conn, %{"username" => username, "password" => password}) do
+    case Users.authenticate_user(username, password) do
+      {:ok, user} ->
+        conn
+        |> Guardian.Plug.sign_in(user)
+        |> put_status(200)
+        |> render("success.json")
+      {:error, _reason} ->
+        conn
+        |> put_status(401)
+        |> render("error.json", message: "Can't login")
+    end
   end
 
   def logout(conn, _) do

@@ -19,9 +19,9 @@
         <div class="mb-6 pt-3 rounded bg-gray-200">
           <input
             type="text"
-            id="email"
-            placeholder="Email"
-            v-model="email"
+            id="username"
+            placeholder="Username"
+            v-model="username"
             class="bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-purple-600 transition duration-500 px-3 pb-3"
           />
         </div>
@@ -63,16 +63,19 @@ import { loginUser } from '../api/Users'
 
 @Component
 export default class LoginPage extends Vue {
-  email: string = ''
+  username: string = ''
   password: string = ''
   error: boolean = false
 
   async login() {
-    const { email, password } = this
+    const { username, password } = this
 
     if (this.validateForm()) {
       try {
-        const token = await loginUser({ email, password })
+        const token = await loginUser({
+          username,
+          password,
+        })
 
         this.$axios.setToken(token, 'Bearer')
         this.$router.replace('/dashboard')
@@ -85,7 +88,7 @@ export default class LoginPage extends Vue {
   }
 
   validateForm() {
-    return this.email.length && this.password.length
+    return this.username.length && this.password.length
   }
 }
 </script>

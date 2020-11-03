@@ -20,7 +20,7 @@ defmodule Server.Mixfile do
   def application do
     [
       mod: {Server.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :comeonin]
     ]
   end
 
@@ -46,7 +46,8 @@ defmodule Server.Mixfile do
       {:ex_doc, "~> 0.13", only: :dev},
       {:cors_plug, "~> 2.0"},
       {:argon2_elixir, "~> 2.0"},
-      {:guardian, "~> 2.0"}
+      {:guardian, "~> 2.0"},
+      {:comeonin, "~> 5.3.1"}
     ]
   end
 
