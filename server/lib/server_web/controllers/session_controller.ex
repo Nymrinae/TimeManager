@@ -19,7 +19,7 @@ defmodule ServerWeb.SessionController do
         conn
         |> Guardian.Plug.sign_in(user)
         |> put_status(200)
-        |> render("success.json")
+        |> render("success.json", user: user)
       {:error, _reason} ->
         conn
         |> put_status(401)

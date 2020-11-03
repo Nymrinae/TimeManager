@@ -1,9 +1,14 @@
 defmodule ServerWeb.SessionView do
   use ServerWeb, :view
 
-  def render("success.json", _params) do
+  def render("success.json", %{user: user }) do
     %{
       status: :ok,
+      user: %{
+        id: user.id,
+        username: user.username,
+        role: user.role
+      },
       message: """
         Successfully registered!
       """

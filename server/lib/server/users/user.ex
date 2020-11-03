@@ -7,6 +7,7 @@ defmodule Server.Users.User do
     field :username, :string
     field :email, :string
     field :password, :string
+    field :role, :string
     has_one :clock, Server.Clocks.Clock
 
     timestamps()
