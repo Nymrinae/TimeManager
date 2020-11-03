@@ -2,10 +2,9 @@ defmodule Server.Users do
   @moduledoc """
   The Users context.
   """
-
   import Ecto.Query, warn: false
+  alias Argon2
   alias Server.Repo
-
   alias Server.Users.User
 
   @doc """
@@ -44,15 +43,17 @@ defmodule Server.Users do
     Repo.one(query)
   end
 
-  def login_user(email, password) do
-    case Repo.get_by(User, email: email) do
+  def authenticate_user(username, plain_text_password) do
+    query = from u in User, where: u.username == ^username
+    case Repo.one(query) do
       nil ->
-        {:error, :not_found}
+        Argon2.no_user_verify()
+        {:error, :invalid_credentials}
       user ->
-        if Comeonin.Bcrypt.checkpw(password, user.password) do
+        if Argon2.verify_pass(plain_text_password, user.password) do
           {:ok, user}
         else
-          {:error, :unauthorized}
+          {:error, :invalid_credentials}
         end
     end
   end

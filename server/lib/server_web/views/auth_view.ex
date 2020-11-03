@@ -21,9 +21,10 @@ defmodule ServerWeb.AuthView do
     }
   end
 
-  def render("error.json") do
+  def render("error.json", %{message: message}) do
     %{
-      status: :bad_request
+      status: :bad_request,
+      message: message
     }
   end
 end
