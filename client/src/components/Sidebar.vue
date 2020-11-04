@@ -19,11 +19,11 @@
       <p class="pl-4 text-sm font-semibold mb-1">{{ currentUser.username.toUpperCase() }}</p>
       <SidebarLink scope="User" />
     </div>
-    <div class="mb-4 px-4">
+    <div v-if="['manager', 'admin'].includes(currentUser.role)" class="mb-4 px-4">
       <p class="pl-4 text-sm font-semibold mb-1">MANAGE TEAM</p>
       <SidebarLink scope="Manager" />
     </div>
-    <div class="mb-4 px-4">
+    <div v-if="currentUser.role === 'admin'" class="mb-4 px-4">
       <p class="pl-4 text-sm font-semibold mb-1">MANAGE USERS</p>
       <SidebarLink scope="Admin" />
     </div>
@@ -41,6 +41,5 @@ const UserModule = namespace('user')
 export default class Sidebar extends Vue {
   @AppModule.State sidebarOpen
   @UserModule.State currentUser
-
 }
 </script>

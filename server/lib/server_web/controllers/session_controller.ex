@@ -32,19 +32,6 @@ defmodule ServerWeb.SessionController do
   def logout(conn, _) do
     conn
     |> Guardian.Plug.sign_out()
-    |> redirect(to: "/login")
-  end
-
-  defp login_reply({:ok, user}, conn) do
-    conn
     |> put_status(200)
-    |> put_flash(:info, "Welcome back!")
-    |> Guardian.Plug.sign_in(user)
-  end
-
-  defp login_reply({:error, reason}, conn) do
-    conn
-    |> put_flash(:error, to_string(reason))
-    |> new(%{})
   end
 end
