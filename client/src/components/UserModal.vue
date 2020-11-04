@@ -77,7 +77,7 @@
           <span class="flex w-full rounded-md shadow-sm sm:ml-3 sm:w-auto">
             <button
               class="inline-flex justify-center w-full rounded-md border border-transparent px-4 py-2 bg-green-600 text-base leading-6 font-medium text-white shadow-sm hover:bg-green-500 focus:outline-none focus:border-green-700 focus:shadow-outline-red transition ease-in-out duration-150 sm:text-sm sm:leading-5"
-              @click="createUser"
+              @click="modalType === 'create' ? addUser() : editUser()"
             >
               {{ modalType.replace(/(^\w|\s\w)/g, c => c.toUpperCase()) }}
             </button>
@@ -98,7 +98,7 @@
 
 <script lang="ts">
 import { Vue, Component, Watch, namespace } from 'nuxt-property-decorator'
-import { createUser } from '../api/Users'
+import { createUser, updateUser } from '../api/Users'
 
 const AppModule = namespace('app')
 const UserModule = namespace('user')
@@ -133,6 +133,15 @@ export default class UserModal extends Vue {
       password,
       role: role.toLowerCase()
     })
+
+    this.changeUserModalState()
+  }
+
+  async editUser() {
+    const { username, role, email, password } = this
+    const userInfo = { username, role, email, password }
+
+    await updateUser(this.editableUser.id, Object.entries(userInfo).reduce((a, [k,v]) => v ? (a[k] = v, a) : a, {}))
   }
 
   closeModal() {

@@ -42,11 +42,15 @@
             </td>
             <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
               <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Actions</span>
-              <button @click="openEditModal({ username, email, role })" class="px-5 py-2 border-blue-500 border text-blue-500 text-xs rounded transition duration-300 hover:bg-blue-700 hover:text-white focus:outline-none">
+              <button class="px-5 py-2 border-blue-500 border text-blue-500 text-xs rounded transition duration-300 hover:bg-blue-700 hover:text-white focus:outline-none">
+                <img src="@/assets/icons/dashboard.svg" class="w-4 h-4 mr-2" style="display: inline-block" />
+                <span class="font-semibold"> View Dashboard </span>
+              </button>
+              <button @click="openEditModal({ id, username, email, role })" class="px-5 py-2 border-blue-500 border text-blue-500 text-xs rounded transition duration-300 hover:bg-blue-700 hover:text-white focus:outline-none">
                 <img src="@/assets/icons/edit.svg" class="w-4 h-4 mr-2" style="display: inline-block" />
                 <span class="font-semibold"> Edit User </span>
               </button>
-              <button class="px-5 py-2 border-red-500 border text-red-500 text-xs rounded transition duration-300 hover:bg-red-700 hover:text-white focus:outline-none">
+              <button @click="removeUser(id)" class="px-5 py-2 border-red-500 border text-red-500 text-xs rounded transition duration-300 hover:bg-red-700 hover:text-white focus:outline-none">
                 <img src="@/assets/icons/clear.svg" class="w-4 h-4 mr-2" style="display: inline-block" />
                 <span class="font-semibold"> Delete User </span>
               </button>
@@ -99,7 +103,7 @@
 
 <script lang="ts">
 import { Vue, Component, namespace } from 'nuxt-property-decorator'
-import { getAllUsers } from '../../api/Users'
+import { getAllUsers, deleteUser } from '../../api/Users'
 
 const AppModule = namespace('app')
 const UserModule = namespace('user')
@@ -159,6 +163,10 @@ export default class Users extends Vue {
     this.setUserModalType('edit')
     this.setEditableUser(user)
     this.changeUserModalState()
+  }
+
+  async removeUser(id) {
+    await deleteUser(id)
   }
 }
 </script>

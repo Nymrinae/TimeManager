@@ -43,8 +43,9 @@ defmodule ServerWeb.UserController do
     user = Users.get_user_by_id(Map.get(params, "id", ""))
     username = Map.get(params, "username", user.username)
     email = Map.get(params, "email", user.email)
+    role = Map.get(params, "role", user.role)
 
-    with {:ok, %User{} = user} <- Users.update_user(user, %{username: username, email: email}) do
+    with {:ok, %User{} = user} <- Users.update_user(user, %{username: username, email: email, role: role}) do
       render(conn, "show.json", user: user)
     end
   end

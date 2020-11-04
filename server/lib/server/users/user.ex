@@ -27,6 +27,11 @@ defmodule Server.Users.User do
     |> validate_changeset
   end
 
+  def update_changeset(user, attrs) do
+    user
+    |> cast(attrs, [:username, :email, :password, :role])
+  end
+
   defp validate_changeset(user) do
     user
       |> validate_format(:email, ~r/@/, [message: "Must be a valid email"])
