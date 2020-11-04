@@ -1,7 +1,7 @@
 <template>
   <div>
     <Header message="Manage Users" />
-    <CreateUserModal />
+    <UserModal />
     <div>
       <table class="border-collapse w-full">
         <thead>
@@ -34,21 +34,25 @@
             </td>
             <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
               <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Role</span>
-              {{ role }}
+              {{ role.replace(/(^\w|\s\w)/g, c => c.toUpperCase()) }}
             </td>
             <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
               <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Team</span>
-              {{ team }}
+              {{ team || 'No team assigned' }}
             </td>
             <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
               <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Actions</span>
               <button class="px-5 py-2 border-blue-500 border text-blue-500 text-xs rounded transition duration-300 hover:bg-blue-700 hover:text-white focus:outline-none">
-                <img src="@/assets/icons/edit.svg" class="w-4 h-4 mr-2" style="display: inline-block" />
-                <span class="font-semibold"> Edit </span>
+                <img src="@/assets/icons/dashboard.svg" class="w-4 h-4 mr-2" style="display: inline-block" />
+                <span class="font-semibold"> View Dashboard </span>
               </button>
-              <button class="px-5 py-2 border-red-500 border text-red-500 text-xs rounded transition duration-300 hover:bg-red-700 hover:text-white focus:outline-none">
+              <button @click="openEditModal({ id, username, email, role })" class="px-5 py-2 border-blue-500 border text-blue-500 text-xs rounded transition duration-300 hover:bg-blue-700 hover:text-white focus:outline-none">
+                <img src="@/assets/icons/edit.svg" class="w-4 h-4 mr-2" style="display: inline-block" />
+                <span class="font-semibold"> Edit User </span>
+              </button>
+              <button @click="removeUser(id)" class="px-5 py-2 border-red-500 border text-red-500 text-xs rounded transition duration-300 hover:bg-red-700 hover:text-white focus:outline-none">
                 <img src="@/assets/icons/clear.svg" class="w-4 h-4 mr-2" style="display: inline-block" />
-                <span class="font-semibold"> Delete </span>
+                <span class="font-semibold"> Delete User </span>
               </button>
             </td>
           </tr>
@@ -99,13 +103,19 @@
 
 <script lang="ts">
 import { Vue, Component, namespace } from 'nuxt-property-decorator'
+import { getAllUsers, deleteUser } from '../../api/Users'
 
 const AppModule = namespace('app')
+const UserModule = namespace('user')
 
 @Component({ layout: 'dashboard' })
 export default class Users extends Vue {
   @AppModule.State searchedUser
+  @AppModule.Mutation changeUserModalState
+  @AppModule.Mutation setUserModalType
+  @UserModule.Mutation setEditableUser
 
+  users: User[] = []
   currentPage: number = 1
   categories = ['ID', 'Username', 'Email', 'Role', 'Team', 'Actions']
 
@@ -133,40 +143,11 @@ export default class Users extends Vue {
     return (this.currentPage - 1) * 10 + 9 > this.users.length ? this.users.length : (this.currentPage - 1) * 10 + 9
   }
 
-  users = [
-    { id: 1, username: 'Nymrinae', email: 'menfou@gmail.com', role: 'Admin', team: 'TimeManager_1' },
-    { id: 2, username: 'Seraphae', email: 'menfou@gmail.com', role: 'User', team: 'TimeManager_1' },
-    { id: 3, username: 'Saphyrae', email: 'menfou@gmail.com', role: 'User', team: 'TimeManager_1' },
-    { id: 4, username: 'Test', email: 'menfou@gmail.com', role: 'User', team: 'TimeManager_7' },
-    { id: 5, username: 'Pseudo', email: 'menfou@gmail.com', role: 'User', team: 'TimeManager_7' },
-    { id: 6, username: 'Irelia', email: 'menfou@gmail.com', role: 'Manager', team: 'TimeManager_3' },
-    { id: 7, username: 'Renekton', email: 'menfou@gmail.com', role: 'Manager', team: 'TimeManager_3' },
-    { id: 8, username: 'Fiora', email: 'menfou@gmail.com', role: 'User', team: 'TimeManager_3' },
-    { id: 9, username: 'Luffy', email: 'menfou@gmail.com', role: 'User', team: 'TimeManager_4' },
-    { id: 10, username: 'Arima', email: 'menfou@gmail.com', role: 'User', team: 'TimeManager_4' },
-    { id: 11, username: 'test', email: 'menfou@gmail.com', role: 'User', team: 'TimeManager_4' },
-    { id: 12, username: 'test', email: 'menfou@gmail.com', role: 'User', team: 'TimeManager_9' },
-    { id: 13, username: 'test', email: 'menfou@gmail.com', role: 'User', team: 'TimeManager_9' },
-    { id: 14, username: 'test', email: 'menfou@gmail.com', role: 'User', team: 'TimeManager_4' },
-    { id: 15, username: 'test', email: 'menfou@gmail.com', role: 'User', team: 'TimeManager_9' },
-    { id: 16, username: 'test', email: 'menfou@gmail.com', role: 'User', team: 'TimeManager_9' },
-    { id: 17, username: 'test', email: 'menfou@gmail.com', role: 'User', team: 'TimeManager_4' },
-    { id: 18, username: 'test', email: 'menfou@gmail.com', role: 'User', team: 'TimeManager_9' },
-    { id: 19, username: 'test', email: 'menfou@gmail.com', role: 'User', team: 'TimeManager_9' },
-    { id: 20, username: 'test', email: 'menfou@gmail.com', role: 'User', team: 'TimeManager_4' },
-    { id: 21, username: 'test', email: 'menfou@gmail.com', role: 'User', team: 'TimeManager_9' },
-    { id: 22, username: 'test', email: 'menfou@gmail.com', role: 'User', team: 'TimeManager_9' },
-    { id: 23, username: 'test', email: 'menfou@gmail.com', role: 'User', team: 'TimeManager_4' },
-    { id: 24, username: 'test', email: 'menfou@gmail.com', role: 'User', team: 'TimeManager_9' },
-    { id: 25, username: 'test', email: 'menfou@gmail.com', role: 'User', team: 'TimeManager_9' },
-    { id: 26, username: 'test', email: 'menfou@gmail.com', role: 'User', team: 'TimeManager_4' },
-    { id: 27, username: 'test', email: 'menfou@gmail.com', role: 'User', team: 'TimeManager_9' },
-    { id: 28, username: 'test', email: 'menfou@gmail.com', role: 'User', team: 'TimeManager_9' },
-    { id: 29, username: 'test', email: 'menfou@gmail.com', role: 'User', team: 'TimeManager_9' },
-    { id: 30, username: 'test', email: 'menfou@gmail.com', role: 'User', team: 'TimeManager_4' },
-    { id: 31, username: 'test', email: 'menfou@gmail.com', role: 'User', team: 'TimeManager_9' },
-    { id: 32, username: 'caca', email: 'menfou@gmail.com', role: 'User', team: 'TimeManager_9' }
-  ]
+  async mounted() {
+    const users = await getAllUsers()
+
+    this.users = users
+  }
 
   moveForward() {
     if (this.currentPage + 1 <= this.pages)
@@ -176,6 +157,16 @@ export default class Users extends Vue {
   moveBackward() {
     if (this.currentPage - 1 > 0)
       this.currentPage--
+  }
+
+  openEditModal(user) {
+    this.setUserModalType('edit')
+    this.setEditableUser(user)
+    this.changeUserModalState()
+  }
+
+  async removeUser(id) {
+    await deleteUser(id)
   }
 }
 </script>

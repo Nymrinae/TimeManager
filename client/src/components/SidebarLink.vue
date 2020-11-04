@@ -25,13 +25,16 @@ const AppModule = namespace('app')
 @Component
 export default class SidebarLink extends Vue {
   @Prop() scope!: 'User' | 'Manager' | 'Admin'
+  @AppModule.State sidebarOpen
   @AppModule.Mutation changeSidebarState
 
   filteredNavLinks: NavLinkProperties[] = navLinks.filter(link => link.scope === this.scope)
 
   openPath(path) {
+    if (this.sidebarOpen)
+      this.changeSidebarState()
+
     this.$router.push(path)
-    this.changeSidebarState()
   }
 }
 </script>

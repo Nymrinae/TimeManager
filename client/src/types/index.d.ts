@@ -1,7 +1,14 @@
 type UserInfo = {
   username?: string,
   password?: string,
-  email?: string
+  email?: string,
+  role?: string
+}
+
+type User = {
+  id: number,
+  username: string,
+  role: string
 }
 
 type NavLinkProperties = {
@@ -11,3 +18,5 @@ type NavLinkProperties = {
   to: string,
   scope: 'User' | 'Manager' | 'Admin'
 }
+
+type ModalType = 'create' | 'edit'

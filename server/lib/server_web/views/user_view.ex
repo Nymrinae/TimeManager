@@ -4,7 +4,7 @@ defmodule ServerWeb.UserView do
 
   def render("index.json", %{users: users}) do
     %{
-      data: render_many(users, UserView, "user.json")
+      users: render_many(users, UserView, "user.json")
     }
   end
 
@@ -18,6 +18,7 @@ defmodule ServerWeb.UserView do
     %{
       id: user.id,
       email: user.email,
+      role: user.role,
       username: user.username
     }
   end

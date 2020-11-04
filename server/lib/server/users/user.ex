@@ -6,6 +6,7 @@ defmodule Server.Users.User do
     field :username, :string
     field :email, :string
     field :password, :string
+    field :role, :string
     has_one :clock, Server.Clocks.Clock
 
     timestamps()
@@ -14,8 +15,8 @@ defmodule Server.Users.User do
   @doc false
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [:username, :email, :password])
-    |> validate_required([:username, :email, :password])
+    |> cast(attrs, [:username, :email, :password, :role])
+    |> validate_required([:username, :email, :password, :role])
     |> validate_changeset
   end
 
@@ -26,20 +27,22 @@ defmodule Server.Users.User do
     |> validate_changeset
   end
 
+  def update_changeset(user, attrs) do
+    user
+    |> cast(attrs, [:username, :email, :password, :role])
+  end
+
   defp validate_changeset(user) do
     user
       |> validate_format(:email, ~r/@/, [message: "Must be a valid email"])
       |> unique_constraint(:email)
       |> validate_length(:password, min: 5, max: 16)
-      |> generate_password_hash
+      |> generate_password_hash()
   end
 
-  defp generate_password_hash(changeset) do
-    case changeset do
-      %Ecto.Changeset{valid?: true, changes: %{password: password}} ->
-        put_change(changeset, :password, Comeonin.Bcrypt.hashpwsalt(password))
-      _ ->
-        changeset
-    end
+  defp generate_password_hash(%Ecto.Changeset{valid?: true, changes: %{password: password}} = changeset) do
+    change(changeset, password: Bcrypt.hash_pwd_salt(password))
   end
+
+  defp generate_password_hash(changeset), do: changeset
 end

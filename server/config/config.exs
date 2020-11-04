@@ -19,15 +19,11 @@ config :server, ServerWeb.Endpoint,
   live_view: [signing_salt: "Ou7SRJ1l"]
 
 # Configure Guardian for JWT Auth
-config :guardian, Guardian,
+config :server, Server.Users.Guardian,
   allowed_algos: ["HS512"],
-  verify_module: Guardian.JWT,
-  issuer: "Server",
+  issuer: "server",
   ttl: { 30, :days },
-  allowed_drift: 2000,
-  verify_issuer: true,
-  secret_key: "H07w2FRoSIVJu02fyd46FeEz3DEFm7icn7iOhyP7M/7y1InBFYurwrpF6dim+TTk",
-  serializer: Server.GuardianSerializer
+  secret_key: "H07w2FRoSIVJu02fyd46FeEz3DEFm7icn7iOhyP7M/7y1InBFYurwrpF6dim+TTk"
 
 # Configures Elixir's Logger
 config :logger, :console,
