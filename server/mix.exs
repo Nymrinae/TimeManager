@@ -45,7 +45,7 @@ defmodule Server.Mixfile do
       {:plug_cowboy, "~> 2.0"},
       {:ex_doc, "~> 0.13", only: :dev},
       {:cors_plug, "~> 2.0"},
-      {:argon2_elixir, "~> 2.0"},
+      {:bcrypt_elixir, "~> 2.0"},
       {:guardian, "~> 2.0"},
       {:comeonin, "~> 5.3.1"}
     ]

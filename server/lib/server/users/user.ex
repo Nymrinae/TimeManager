@@ -1,7 +1,6 @@
 defmodule Server.Users.User do
   use Ecto.Schema
   import Ecto.Changeset
-  # alias Argon2
 
   schema "users" do
     field :username, :string
@@ -33,11 +32,11 @@ defmodule Server.Users.User do
       |> validate_format(:email, ~r/@/, [message: "Must be a valid email"])
       |> unique_constraint(:email)
       |> validate_length(:password, min: 5, max: 16)
-      # |> generate_password_hash()
+      |> generate_password_hash()
   end
 
   defp generate_password_hash(%Ecto.Changeset{valid?: true, changes: %{password: password}} = changeset) do
-    change(changeset, password: Comeonin.Bcrypt.hashpwsalt(password))
+    change(changeset, password: Bcrypt.hash_pwd_salt(password))
   end
 
   defp generate_password_hash(changeset), do: changeset

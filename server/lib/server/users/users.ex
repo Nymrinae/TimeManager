@@ -3,7 +3,6 @@ defmodule Server.Users do
   The Users context.
   """
   import Ecto.Query, warn: false
-  # alias Argon2
   alias Server.Repo
   alias Server.Users.User
 
@@ -43,15 +42,14 @@ defmodule Server.Users do
     Repo.one(query)
   end
 
-  def authenticate_user(username, plain_text_password) do
+  def authenticate_user(username, password) do
     query = from u in User, where: u.username == ^username
     case Repo.one(query) do
       nil ->
-        # Argon2.no_user_verify()
+        Bcrypt.no_user_verify()
         {:error, :invalid_credentials}
       user ->
-        # if Argon2.verify_pass(plain_text_password, user.password) do
-        if plain_text_password === user.password do
+        if Bcrypt.verify_pass(password, user.password) do
           {:ok, user}
         else
           {:error, :invalid_credentials}
