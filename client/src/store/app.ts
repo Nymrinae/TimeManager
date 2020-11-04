@@ -6,15 +6,20 @@ import { Module, VuexModule, VuexMutation } from 'nuxt-property-decorator'
 })
 export default class AppModule extends VuexModule {
   searchedUser: any = ''
+  modalType: ModalType = 'create'
   sidebarOpen: boolean = false
-  showCreateUser: boolean = false
+  showUserModal: boolean = false
 
   @VuexMutation changeSidebarState() {
     this.sidebarOpen = !this.sidebarOpen
   }
 
-  @VuexMutation changeCreateUserState() {
-    this.showCreateUser = !this.showCreateUser
+  @VuexMutation setUserModalType(modalType: ModalType) {
+    this.modalType = modalType
+  }
+
+  @VuexMutation changeUserModalState() {
+    this.showUserModal = !this.showUserModal
   }
 
   @VuexMutation searchUser(user: Event) {

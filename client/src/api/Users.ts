@@ -1,5 +1,11 @@
 import { $axios } from '@/helpers/axiosInstance'
 
+const getAllUsers = async () => {
+  const { data } = await $axios.get('/users')
+
+  return data.users
+}
+
 const getUserById = async (userId: number) => {
   const { data } = await $axios.get(`/users/${userId}`)
 
@@ -14,6 +20,12 @@ const getUserByInfos = async (userInfos: UserInfo) => {
 }
 
 const createUser = async (userInfos: UserInfo) => {
+  const { data } = await $axios.post('/users', userInfos)
+
+  console.log(data)
+}
+
+const registerUser = async (userInfos: UserInfo) => {
   const { data } = await $axios.post('/register', userInfos)
 
   console.log(data)
@@ -41,8 +53,10 @@ const updateUser = async (userId: number, userInfos: UserInfo) => {
 export {
   createUser,
   deleteUser,
+  getAllUsers,
   getUserById,
   getUserByInfos,
   loginUser,
+  registerUser,
   updateUser
 }

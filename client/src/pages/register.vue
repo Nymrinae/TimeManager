@@ -81,12 +81,12 @@
 
 <script lang="ts">
 import { Component, Vue } from "nuxt-property-decorator"
-import { createUser } from '../api/Users'
+import { registerUser } from '../api/Users'
 
 @Component
 export default class RegisterPage extends Vue {
-  username: string = 'testfront'
-  email: string = 'testfront@gmail.com'
+  username: string = ''
+  email: string = ''
   password: string = ''
   confPassword: string = ''
   success: boolean = false
@@ -96,7 +96,7 @@ export default class RegisterPage extends Vue {
     const { username, email, password } = this
 
     if (this.validateForm()) {
-      await createUser({ username, email, password })
+      await registerUser({ username, email, password })
       this.success = true
     } else {
       this.error = true

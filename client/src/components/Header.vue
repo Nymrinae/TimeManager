@@ -12,7 +12,7 @@
     <button
       v-if="$route.path === '/admin/users'"
       class="bg-green-500 hover:bg-green-600 focus:outline-none rounded-lg px-6 py-2 text-white font-semibold shadow"
-      @click="changeCreateUserState"
+      @click="openCreateModal"
     >
       Create New User
     </button>
@@ -26,10 +26,17 @@ const AppModule = namespace('app')
 
 @Component
 export default class Header extends Vue {
-  @AppModule.Mutation changeCreateUserState
+  @AppModule.Mutation changeUserModalState
+  @AppModule.Mutation setUserModalType
+
   @Prop() message!: string
 
   working: boolean = false
+
+  openCreateModal() {
+    this.setUserModalType('create')
+    this.changeUserModalState()
+  }
 }
 </script>
 
