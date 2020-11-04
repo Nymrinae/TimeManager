@@ -1,7 +1,7 @@
 defmodule Server.Users.User do
   use Ecto.Schema
   import Ecto.Changeset
-  alias Argon2
+  # alias Argon2
 
   schema "users" do
     field :username, :string

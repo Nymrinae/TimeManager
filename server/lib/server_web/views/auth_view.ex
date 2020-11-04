@@ -3,7 +3,7 @@ defmodule ServerWeb.AuthView do
 
   def render("success.json", _params) do
     %{
-      status: :ok,
+      status: 201,
       message: """
         Successfully registered!
       """

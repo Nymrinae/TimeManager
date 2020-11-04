@@ -3,7 +3,7 @@ defmodule Server.Users do
   The Users context.
   """
   import Ecto.Query, warn: false
-  alias Argon2
+  # alias Argon2
   alias Server.Repo
   alias Server.Users.User
 
@@ -47,7 +47,7 @@ defmodule Server.Users do
     query = from u in User, where: u.username == ^username
     case Repo.one(query) do
       nil ->
-        Argon2.no_user_verify()
+        # Argon2.no_user_verify()
         {:error, :invalid_credentials}
       user ->
         # if Argon2.verify_pass(plain_text_password, user.password) do

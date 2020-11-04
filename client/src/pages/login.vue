@@ -81,6 +81,8 @@ export default class LoginPage extends Vue {
           password,
         })
 
+        console.log(token)
+
         this.$axios.setToken(token, 'Bearer')
         this.setUser(user)
         this.$router.replace('/dashboard')
