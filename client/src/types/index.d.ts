@@ -4,6 +4,12 @@ type UserInfo = {
   email?: string
 }
 
+type User = {
+  id: number,
+  username: string,
+  role: string
+}
+
 type NavLinkProperties = {
   id: number,
   name: string,

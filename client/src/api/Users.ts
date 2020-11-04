@@ -28,7 +28,10 @@ const deleteUser = async (userId: number) => {
 const loginUser = async (userInfos: UserInfo) => {
   const { data } = await $axios.post('/login', userInfos)
 
-  return data.token
+  return { 
+    token: data.token,
+    user: data.user
+  }
 }
 
 const updateUser = async (userId: number, userInfos: UserInfo) => {

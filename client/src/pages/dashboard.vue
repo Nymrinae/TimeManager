@@ -1,14 +1,18 @@
 <template>
   <div>
-    <Header message="Hello Nymrinae!" />
+    <Header :message="`Hello ${currentUser.username}!`" />
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "nuxt-property-decorator";
+import { Component, Vue, namespace } from "nuxt-property-decorator"
+
+const UserModule = namespace('user')
 
 @Component({ layout: 'dashboard' })
-export default class DashboardPage extends Vue {}
+export default class DashboardPage extends Vue {
+  @UserModule.State currentUser
+}
 </script>
 
 <style scoped>

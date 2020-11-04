@@ -16,10 +16,12 @@ defmodule ServerWeb.SessionController do
   def login(conn, %{"username" => username, "password" => password}) do
     case Users.authenticate_user(username, password) do
       {:ok, user} ->
+        {:ok, jwt, _full_claims} = Guardian.encode_and_sign(user, %{})
+
         conn
         |> Guardian.Plug.sign_in(user)
         |> put_status(200)
-        |> render("success.json", user: user)
+        |> render("success.json", %{user: user, token: jwt})
       {:error, _reason} ->
         conn
         |> put_status(401)

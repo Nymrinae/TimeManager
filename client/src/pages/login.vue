@@ -58,8 +58,10 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "nuxt-property-decorator"
+import { Component, Vue, namespace } from "nuxt-property-decorator"
 import { loginUser } from '../api/Users'
+
+const UserModule = namespace('user')
 
 @Component
 export default class LoginPage extends Vue {
@@ -67,17 +69,20 @@ export default class LoginPage extends Vue {
   password: string = ''
   error: boolean = false
 
+  @UserModule.Mutation setUser
+
   async login() {
     const { username, password } = this
 
     if (this.validateForm()) {
       try {
-        const token = await loginUser({
+        const { token, user } = await loginUser({
           username,
           password,
         })
 
         this.$axios.setToken(token, 'Bearer')
+        this.setUser(user)
         this.$router.replace('/dashboard')
       } catch(e) {
         this.error = true
