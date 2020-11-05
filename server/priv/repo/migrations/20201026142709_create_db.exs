@@ -1,4 +1,4 @@
-defmodule Server.Repo.Migrations.CreateDB do
+defmodule Server.Repo.Migrations.InitDb do
   use Ecto.Migration
 
   def change do
@@ -11,20 +11,26 @@ defmodule Server.Repo.Migrations.CreateDB do
       timestamps()
     end
 
-    create_if_not_exists table(:clocks) do
-      add :time, :utc_datetime
-      add :status, :boolean
-      add :user_id, references(:users, on_delete: :delete_all)
-
-      timestamps()
-    end
-
     create_if_not_exists table(:workingtimes) do
       add :start, :utc_datetime
       add :end, :utc_datetime
       add :user_id, references(:users, on_delete: :delete_all)
 
       timestamps()
+    end
+
+    create_if_not_exists table(:teams) do
+      add :name, :string
+
+      timestamps()
+    end
+
+    alter table(:users) do
+      add :team_id, references(:teams, on_delete: :delete_all)
+    end
+
+    alter table(:teams) do
+      add :user_id, references(:users, on_delete: :delete_all)
     end
   end
 end
