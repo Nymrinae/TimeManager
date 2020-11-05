@@ -1,22 +1,43 @@
 <template>
   <div>
     <Header :message="`WorkingTimes Dashboard of ${currentUser.username}!`" />
+    <button
+    v-if=""
+    class="bg-red-500 hover:bg-red-600 focus:outline-none rounded-lg px-6 py-2 text-white font-semibold shadow"
+    >
+    {{ (this  .isWorking()) ? this.isWorking() : "Loading" }}
+    </button>
     <DoughnutChart v-if="loaded" :chartData="doughnutData" :options="doughnutOptions" :height="50" />
     <BarChart v-if="loaded" :chartData="barChartData" :options="barChartOptions" :height="100" />
     <div class="pt-8">
       <button
         class="bg-blue-500 hover:bg-red-600 focus:outline-none rounded-lg px-6 py-2 text-white font-semibold shadow"
-        @click="increment_week_nbr"
+        @click="decrement_week_nbr"
       >
         previous week
       </button>
       <button
         class="bg-blue-500 hover:bg-red-600 focus:outline-none rounded-lg px-6 py-2 text-white font-semibold shadow"
-        @click="decrement_week_nbr"
+        @click="increment_week_nbr"
       >
         next week
       </button>
     </div>
+    <!-- <Header :message="`Hello ${currentUser.username}!`" />
+    <button
+      class="bg-blue-500 hover:bg-red-600 focus:outline-none rounded-lg px-6 py-2 text-white font-semibold shadow"
+      @click="increment_week_nbr"
+    >
+      previous week
+    </button>
+    <button
+      class="bg-blue-500 hover:bg-red-600 focus:outline-none rounded-lg px-6 py-2 text-white font-semibold shadow"
+      @click="decrement_week_nbr"
+    >
+      next week
+    </button>
+    <DoughnutChart v-if="loaded" :data="doughnutData" :options="doughnutOptions" :height="50" />
+    <BarChart v-if="loaded" :data="barChartData" :options="barChartOptions" :height="100" /> -->
   </div>
 </template>
 
@@ -195,6 +216,7 @@ export default class DashboardPage extends Vue {
           weeks.push(week)
           last_day = 0
           week = []
+          
         }
       } else {
         last_day = day_nbr
@@ -302,6 +324,49 @@ export default class DashboardPage extends Vue {
       }
     }
     this.loaded = true
+  }
+  isWorking() {
+    this.currentUser["workingtimes"] = [
+      {
+        "start": "2012-04-23T08:25:43.511Z",
+        "end": "2012-04-23T18:25:43.511Z"
+      },
+      {
+        "start": "2012-04-24T08:25:43.511Z",
+        "end": "2012-04-24T16:25:43.511Z"
+      },
+      {
+        "start": "2012-04-25T10:25:43.511Z",
+        "end": "2012-04-25T15:25:43.511Z"
+      },
+      {
+        "start": "2012-04-27T10:25:43.511Z",
+        "end": "2012-04-27T17:25:43.511Z"
+      },
+      {
+        "start": "2012-04-28T06:25:43.511Z",
+        "end": "2012-04-28T23:25:43.511Z"
+      },
+      {
+        "start": "2012-05-01T10:25:43.511Z",
+        "end": "2012-05-01T12:25:43.511Z"
+      },
+      {
+        "start": "2012-05-02T10:25:43.511Z",
+        "end": "2012-05-02T14:25:43.511Z"
+      },
+      {
+        "start": "2012-05-02T15:25:43.511Z",
+        "end": "2012-05-02T15:25:43.511Z"
+      },
+    ]
+    if(this.currentUser != undefined) {
+      if(this.currentUser.workingtimes[this.currentUser["workingtimes"].length-1].end == undefined || this.currentUser.workingtimes[this.currentUser["workingtimes"].length-1].end == null) {
+        return "Working"
+      } else {
+        return "Not Working"
+      }
+    }
   }
 }
 </script>
