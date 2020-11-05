@@ -1,24 +1,27 @@
 <template>
   <div>
-    <button
-      class="bg-blue-500 hover:bg-red-600 focus:outline-none rounded-lg px-6 py-2 text-white font-semibold shadow"
-      @click="increment_week_nbr"
-    >
-      previous week
-    </button>
-    <button
-      class="bg-blue-500 hover:bg-red-600 focus:outline-none rounded-lg px-6 py-2 text-white font-semibold shadow"
-      @click="decrement_week_nbr"
-    >
-      next week
-    </button>
-    <Header :message="`Hello ${currentUser.username}!`" />
-    <DoughnutChart v-if="loaded" :data="doughnutData" :options="doughnutOptions" :height="50" />
-    <BarChart v-if="loaded" :data="barChartData" :options="barChartOptions" :height="100" />
+    <Header :message="`WorkingTimes Dashboard of ${currentUser.username}!`" />
+    <DoughnutChart v-if="loaded" :chartData="doughnutData" :options="doughnutOptions" :height="50" />
+    <BarChart v-if="loaded" :chartData="barChartData" :options="barChartOptions" :height="100" />
+    <div class="pt-8">
+      <button
+        class="bg-blue-500 hover:bg-red-600 focus:outline-none rounded-lg px-6 py-2 text-white font-semibold shadow"
+        @click="increment_week_nbr"
+      >
+        previous week
+      </button>
+      <button
+        class="bg-blue-500 hover:bg-red-600 focus:outline-none rounded-lg px-6 py-2 text-white font-semibold shadow"
+        @click="decrement_week_nbr"
+      >
+        next week
+      </button>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
+// @ts-nocheck
 import BarChart from "../helpers/BarChart"
 import DoughnutChart from "../helpers/DoughnutChart"
 import { Component, Vue, namespace } from "nuxt-property-decorator"
@@ -44,7 +47,6 @@ export default class DashboardPage extends Vue {
   week_nbr: number = 0
 
   async mounted() {
-    // console.log("cuurentUser",this.currentUser)
     this.currentUser["workingtimes"] = [
       {
         "start": "2012-04-23T08:25:43.511Z",
@@ -271,7 +273,7 @@ export default class DashboardPage extends Vue {
         display: false
       },
       title: {
-        display: true,
+        display: false,
         text: 'Working Times Dashboard for ' + datasets.username,
         fontSize: 24,
         fontColor: '#6b7280'
