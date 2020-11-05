@@ -8,6 +8,16 @@ export default {
     this.renderChart(this.data, this.options)
     this.textCenter(this.data.total, this.data.night_hours);
   },
+  watcher: {
+    data: {
+      immediate: true,
+      handler (val, oldVal) {
+        console.log("val", val)
+        console.log("oldVal", oldVal)
+        this.$forceUpdate()
+      }
+    }
+  },
   methods: {
     textCenter(hours, night_hours) {
       Chart.pluginService.register({

@@ -1,5 +1,17 @@
 <template>
   <div>
+    <button
+      class="bg-blue-500 hover:bg-red-600 focus:outline-none rounded-lg px-6 py-2 text-white font-semibold shadow"
+      @click="increment_week_nbr"
+    >
+      previous week
+    </button>
+    <button
+      class="bg-blue-500 hover:bg-red-600 focus:outline-none rounded-lg px-6 py-2 text-white font-semibold shadow"
+      @click="decrement_week_nbr"
+    >
+      next week
+    </button>
     <Header :message="`Hello ${currentUser.username}!`" />
     <DoughnutChart v-if="loaded" :data="doughnutData" :options="doughnutOptions" :height="50" />
     <BarChart v-if="loaded" :data="barChartData" :options="barChartOptions" :height="100" />
@@ -29,9 +41,10 @@ export default class DashboardPage extends Vue {
   barChartData: any = {}
   doughnutOptions: any = {}
   loaded = false
+  week_nbr: number = 0
 
   async mounted() {
-    console.log("cuurentUser",this.currentUser)
+    // console.log("cuurentUser",this.currentUser)
     this.currentUser["workingtimes"] = [
       {
         "start": "2012-04-23T08:25:43.511Z",
@@ -52,16 +65,104 @@ export default class DashboardPage extends Vue {
       {
         "start": "2012-04-28T06:25:43.511Z",
         "end": "2012-04-28T23:25:43.511Z"
-      }
+      },
+      {
+        "start": "2012-05-01T10:25:43.511Z",
+        "end": "2012-05-01T12:25:43.511Z"
+      },
+      {
+        "start": "2012-05-02T10:25:43.511Z",
+        "end": "2012-05-02T14:25:43.511Z"
+      },
+      {
+        "start": "2012-05-02T15:25:43.511Z",
+        "end": "2012-05-02T17:25:43.511Z"
+      },
     ]
     this.user = this.get_datasets(this.currentUser)
+  }
+  increment_week_nbr() {
+    this.week_nbr++
+    this.currentUser["workingtimes"] = [
+      {
+        "start": "2012-04-23T08:25:43.511Z",
+        "end": "2012-04-23T18:25:43.511Z"
+      },
+      {
+        "start": "2012-04-24T08:25:43.511Z",
+        "end": "2012-04-24T16:25:43.511Z"
+      },
+      {
+        "start": "2012-04-25T10:25:43.511Z",
+        "end": "2012-04-25T15:25:43.511Z"
+      },
+      {
+        "start": "2012-04-27T10:25:43.511Z",
+        "end": "2012-04-27T17:25:43.511Z"
+      },
+      {
+        "start": "2012-04-28T06:25:43.511Z",
+        "end": "2012-04-28T23:25:43.511Z"
+      },
+      {
+        "start": "2012-05-01T10:25:43.511Z",
+        "end": "2012-05-01T12:25:43.511Z"
+      },
+      {
+        "start": "2012-05-02T10:25:43.511Z",
+        "end": "2012-05-02T14:25:43.511Z"
+      },
+      {
+        "start": "2012-05-02T15:25:43.511Z",
+        "end": "2012-05-02T17:25:43.511Z"
+      },
+    ]
+    this.get_datasets(this.currentUser)
+  }
+  decrement_week_nbr() {
+    this.week_nbr--
+    this.currentUser["workingtimes"] = [
+      {
+        "start": "2012-04-23T08:25:43.511Z",
+        "end": "2012-04-23T18:25:43.511Z"
+      },
+      {
+        "start": "2012-04-24T08:25:43.511Z",
+        "end": "2012-04-24T16:25:43.511Z"
+      },
+      {
+        "start": "2012-04-25T10:25:43.511Z",
+        "end": "2012-04-25T15:25:43.511Z"
+      },
+      {
+        "start": "2012-04-27T10:25:43.511Z",
+        "end": "2012-04-27T17:25:43.511Z"
+      },
+      {
+        "start": "2012-04-28T06:25:43.511Z",
+        "end": "2012-04-28T23:25:43.511Z"
+      },
+      {
+        "start": "2012-05-01T10:25:43.511Z",
+        "end": "2012-05-01T12:25:43.511Z"
+      },
+      {
+        "start": "2012-05-02T10:25:43.511Z",
+        "end": "2012-05-02T14:25:43.511Z"
+      },
+      {
+        "start": "2012-05-02T15:25:43.511Z",
+        "end": "2012-05-02T17:25:43.511Z"
+      },
+    ]
+    this.get_datasets(this.currentUser)
   }
   get_datasets(datasets) {
     const day_start = 8 + 2
     const day_end = 18 + 2
     var night_hours = 0
 
-    var week_nbr = 0
+    // var week_nbr = 0
     const max_hour = 35
     var weeks = []
     var i = 0;
@@ -70,7 +171,6 @@ export default class DashboardPage extends Vue {
     var day_nbr =  0
     while(i != datasets.workingtimes.length) {
       let workingtime = datasets.workingtimes[i]
-      console.log("workingtime", datasets.workingtimes)
       let start = new Date(workingtime.start)
       let end = new Date(workingtime.end)
       if(start.getHours() < day_start - 1) {
@@ -103,15 +203,20 @@ export default class DashboardPage extends Vue {
     var week_total = {
       total: 0
     }
-    for(var j = 0; j != weeks[week_nbr].length; j++) {
-      if(weeks[week_nbr][j] != undefined) {
-        week_total["total"] += weeks[week_nbr][j]
+    if (this.week_nbr >= weeks.length) {
+      this.week_nbr = weeks.length -1
+    } else if(this.week_nbr < 0) {
+      this.week_nbr = 0
+    }
+    var looked_week = weeks[this.week_nbr]
+    for(var j = 0; j != looked_week.length; j++) {
+      if(looked_week[j] != undefined) {
+        week_total["total"] += looked_week[j]
       }
     }
     week_total["over_time"] = (week_total["total"] - max_hour > 0) ? week_total["total"] - max_hour : 0
     week_total["normal_time"] = week_total["total"] - week_total["over_time"]
     this.datasets = datasets
-    console.log("weeks", weeks)
     this.doughnutData = {
       total: week_total["total"],
       night_hours: night_hours,
@@ -153,13 +258,13 @@ export default class DashboardPage extends Vue {
       datasets: [
         {
           label: 'Working Times',
-          data: weeks[week_nbr],
+          data: looked_week,
           backgroundColor: '#007ace',
         }
       ]
     }
 
-    console.log("datasets", this.barChartData)
+    console.log("week_nbr", this.week_nbr)
     this.barChartOptions = {
       responsive: true,
       legend: {
@@ -195,87 +300,6 @@ export default class DashboardPage extends Vue {
       }
     }
     this.loaded = true
-  //   return {
-  //     datasets: datasets,
-  //     doughnutData: {
-  //       total: week_total["total"],
-  //       night_hours: night_hours,
-  //       labels: [
-  //         'Normal Hours',
-  //         'Overtime Hours',
-  //       ],
-  //       datasets: [
-  //         {
-  //           data: [week_total["normal_time"], week_total["over_time"]],
-  //           backgroundColor: ['#007ace', '#de3618'],
-  //         }
-  //       ]
-  //     },
-  //     doughnutOptions: {
-  //       responsive: true,
-  //       legend: {
-  //       },
-  //       title: {
-  //         fontSize: 24,
-  //         fontColor: '#6b7280'
-  //       },
-  //       tooltips: {
-  //         backgroundColor: '#17BF62'
-  //       },
-  //     },
-  //     barChartData: {
-  //       labels: [
-  //         'Monday',
-  //         'Tuesday',
-  //         'Wednesay',
-  //         'Thursday',
-  //         'Friday',
-  //         'Saturday',
-  //         'Sunday'
-  //       ],
-  //       datasets: [
-  //         {
-  //           label: 'Working Times',
-  //           data: weeks[week_nbr],
-  //           backgroundColor: '#007ace',
-  //         }
-  //       ]
-  //     },
-  //     barChartOptions: {
-  //       responsive: true,
-  //       legend: {
-  //         display: false
-  //       },
-  //       title: {
-  //         display: true,
-  //         text: 'Working Times Dashboard for ' + datasets.username,
-  //         fontSize: 24,
-  //         fontColor: '#6b7280'
-  //       },
-  //       tooltips: {
-  //         backgroundColor: '#17BF62'
-  //       },
-  //       scales: {
-  //         xAxes: [
-  //           {
-  //             gridLines: {
-  //               display: true
-  //             }
-  //           }
-  //         ],
-  //         yAxes: [
-  //           {
-  //             ticks: {
-  //               beginAtZero: true
-  //             },
-  //             gridLines: {
-  //               display: true
-  //             }
-  //           }
-  //         ]
-  //       }
-  //     }
-  //   }
   }
 }
 </script>
