@@ -108,7 +108,10 @@ import { getAllUsers, deleteUser } from '../../api/Users'
 const AppModule = namespace('app')
 const UserModule = namespace('user')
 
-@Component({ layout: 'dashboard' })
+@Component({
+  layout: 'dashboard',
+  middleware: ['auth', 'admin']
+})
 export default class Users extends Vue {
   @AppModule.State searchedUser
   @AppModule.Mutation changeUserModalState

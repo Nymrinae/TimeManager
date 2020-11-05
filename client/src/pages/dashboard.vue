@@ -30,6 +30,7 @@ const UserModule = namespace('user')
 
 @Component({
   layout: 'dashboard',
+  middleware: 'auth',
   components: {
     BarChart,
     DoughnutChart,
