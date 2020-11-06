@@ -2,6 +2,7 @@
   <div>
     <Header message="Manage Users" />
     <UserModal />
+    <ConfirmationPopUp v-if="confirmationPopUpState" />
     <div>
       <table class="border-collapse w-full">
         <thead>
@@ -50,7 +51,7 @@
                 <img src="@/assets/icons/edit.svg" class="w-4 h-4 mr-2" style="display: inline-block" />
                 <span class="font-semibold"> Edit User </span>
               </button>
-              <button @click="removeUser(id)" class="px-5 py-2 border-red-500 border text-red-500 text-xs rounded transition duration-300 hover:bg-red-700 hover:text-white focus:outline-none">
+              <button @click="removeUser({ id, username })" class="px-5 py-2 border-red-500 border text-red-500 text-xs rounded transition duration-300 hover:bg-red-700 hover:text-white focus:outline-none">
                 <img src="@/assets/icons/clear.svg" class="w-4 h-4 mr-2" style="display: inline-block" />
                 <span class="font-semibold"> Delete User </span>
               </button>
@@ -114,9 +115,12 @@ const UserModule = namespace('user')
 })
 export default class Users extends Vue {
   @AppModule.State searchedUser
+  @AppModule.State confirmationPopUpState
   @AppModule.Mutation changeUserModalState
+  @AppModule.Mutation changeConfirmationPopUpState
   @AppModule.Mutation setUserModalType
   @UserModule.Mutation setEditableUser
+  @UserModule.Mutation setDeletableUser
 
   users: User[] = []
   currentPage: number = 1
@@ -168,8 +172,9 @@ export default class Users extends Vue {
     this.changeUserModalState()
   }
 
-  async removeUser(id) {
-    await deleteUser(id)
+  async removeUser(user) {
+    this.setDeletableUser(user)
+    this.changeConfirmationPopUpState()
   }
 }
 </script>
