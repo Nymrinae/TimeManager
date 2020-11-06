@@ -1,11 +1,10 @@
-<template>
+  <template>
   <div>
     <Header :message="`WorkingTimes Dashboard of ${currentUser.username}!`" />
     <button
-    v-if=""
     class="bg-red-500 hover:bg-red-600 focus:outline-none rounded-lg px-6 py-2 text-white font-semibold shadow"
     >
-    {{ (this  .isWorking()) ? this.isWorking() : "Loading" }}
+    {{ this.isWorking() ? "Working" : "Not Working" }}
     </button>
     <DoughnutChart v-if="loaded" :chartData="doughnutData" :options="doughnutOptions" :height="50" />
     <BarChart v-if="loaded" :chartData="barChartData" :options="barChartOptions" :height="100" />
@@ -23,21 +22,6 @@
         next week
       </button>
     </div>
-    <!-- <Header :message="`Hello ${currentUser.username}!`" />
-    <button
-      class="bg-blue-500 hover:bg-red-600 focus:outline-none rounded-lg px-6 py-2 text-white font-semibold shadow"
-      @click="increment_week_nbr"
-    >
-      previous week
-    </button>
-    <button
-      class="bg-blue-500 hover:bg-red-600 focus:outline-none rounded-lg px-6 py-2 text-white font-semibold shadow"
-      @click="decrement_week_nbr"
-    >
-      next week
-    </button>
-    <DoughnutChart v-if="loaded" :data="doughnutData" :options="doughnutOptions" :height="50" />
-    <BarChart v-if="loaded" :data="barChartData" :options="barChartOptions" :height="100" /> -->
   </div>
 </template>
 
@@ -184,8 +168,8 @@ export default class DashboardPage extends Vue {
     const day_start = 8 + 2
     const day_end = 18 + 2
     var night_hours = 0
+    var night_hours_weeks = []
 
-    // var week_nbr = 0
     const max_hour = 35
     var weeks = []
     var i = 0;
@@ -216,7 +200,9 @@ export default class DashboardPage extends Vue {
           weeks.push(week)
           last_day = 0
           week = []
-          
+          console.log(night_hours)
+          night_hours_weeks.push(night_hours)
+          night_hours = 0
         }
       } else {
         last_day = day_nbr
@@ -224,6 +210,7 @@ export default class DashboardPage extends Vue {
       i++;
     }
     weeks.push(week)
+    night_hours_weeks.push(night_hours)
     var week_total = {
       total: 0
     }
@@ -238,12 +225,13 @@ export default class DashboardPage extends Vue {
         week_total["total"] += looked_week[j]
       }
     }
+    console.log("Night hours wwek", night_hours_weeks)
     week_total["over_time"] = (week_total["total"] - max_hour > 0) ? week_total["total"] - max_hour : 0
     week_total["normal_time"] = week_total["total"] - week_total["over_time"]
     this.datasets = datasets
     this.doughnutData = {
       total: week_total["total"],
-      night_hours: night_hours,
+      night_hours: night_hours_weeks[this.week_nbr],
       labels: [
         'Normal Hours',
         'Overtime Hours',
@@ -360,13 +348,7 @@ export default class DashboardPage extends Vue {
         "end": "2012-05-02T15:25:43.511Z"
       },
     ]
-    if(this.currentUser != undefined) {
-      if(this.currentUser.workingtimes[this.currentUser["workingtimes"].length-1].end == undefined || this.currentUser.workingtimes[this.currentUser["workingtimes"].length-1].end == null) {
-        return "Working"
-      } else {
-        return "Not Working"
-      }
-    }
+    return !this.currentUser.workingtimes[this.currentUser["workingtimes"].length-1].end
   }
 }
 </script>
