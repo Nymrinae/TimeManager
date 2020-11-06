@@ -14,7 +14,7 @@ defmodule Server.Repo.Migrations.InitDb do
     create_if_not_exists table(:workingtimes) do
       add :start, :utc_datetime
       add :end, :utc_datetime
-      add :user_id, references(:users, on_delete: :delete_all)
+      add :user_id, :integer
 
       timestamps()
     end

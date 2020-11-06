@@ -37,7 +37,7 @@ defmodule ServerWeb.Router do
 
     scope "/workingtimes" do
       get "/", WorkingTimeController, :index
-      post "/:id", WorkingTimeController, :create
+      post "/", WorkingTimeController, :create
       delete "/:id", WorkingTimeController, :delete
     end
   end

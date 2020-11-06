@@ -61,7 +61,7 @@ defmodule Server.WorkingTimes do
     %WorkingTime{}
     |> WorkingTime.changeset(attrs)
     |> Repo.insert()
-    |> Repo.preload([:user])
+    # |> Repo.preload([:user])
   end
 
   @doc """
