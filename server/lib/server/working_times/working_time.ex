@@ -7,7 +7,7 @@ defmodule Server.WorkingTimes.WorkingTime do
   schema "workingtimes" do
     field :end, :utc_datetime
     field :start, :utc_datetime
-    belongs_to :user, User
+    field :user_id, :integer
 
     timestamps()
   end
@@ -15,8 +15,8 @@ defmodule Server.WorkingTimes.WorkingTime do
   @doc false
   def changeset(working_time, attrs) do
     working_time
-    |> cast(attrs, [:start, :end])
-    |> validate_required([:start, :end])
-    |> cast_assoc(:user)
+    |> cast(attrs, [:start, :end, :user_id])
+    |> validate_required([:start, :end, :user_id])
+    # |> cast_assoc(:user)
   end
 end

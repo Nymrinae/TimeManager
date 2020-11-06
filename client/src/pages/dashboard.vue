@@ -30,6 +30,7 @@
 import BarChart from "../helpers/BarChart"
 import DoughnutChart from "../helpers/DoughnutChart"
 import { Component, Vue, namespace } from "nuxt-property-decorator"
+import { getWorkingTimes } from '../api/WorkingTimes'
 
 const UserModule = namespace('user')
 
@@ -51,119 +52,28 @@ export default class DashboardPage extends Vue {
   doughnutOptions: any = {}
   loaded = false
   week_nbr: number = 0
+  user_workingtimes: any = {}
 
   async mounted() {
-    this.currentUser["workingtimes"] = [
-      {
-        "start": "2012-04-23T08:25:43.511Z",
-        "end": "2012-04-23T18:25:43.511Z"
-      },
-      {
-        "start": "2012-04-24T08:25:43.511Z",
-        "end": "2012-04-24T16:25:43.511Z"
-      },
-      {
-        "start": "2012-04-25T10:25:43.511Z",
-        "end": "2012-04-25T15:25:43.511Z"
-      },
-      {
-        "start": "2012-04-27T10:25:43.511Z",
-        "end": "2012-04-27T17:25:43.511Z"
-      },
-      {
-        "start": "2012-04-28T06:25:43.511Z",
-        "end": "2012-04-28T23:25:43.511Z"
-      },
-      {
-        "start": "2012-05-01T10:25:43.511Z",
-        "end": "2012-05-01T12:25:43.511Z"
-      },
-      {
-        "start": "2012-05-02T10:25:43.511Z",
-        "end": "2012-05-02T14:25:43.511Z"
-      },
-      {
-        "start": "2012-05-02T15:25:43.511Z",
-        "end": "2012-05-02T17:25:43.511Z"
-      },
-    ]
-    this.user = this.get_datasets(this.currentUser)
+    var workingtimes = await getWorkingTimes()
+    console.log("workingtimes", workingtimes)
+    var user_workingtimes = []
+    for(var i = 0; i < workingtimes.length - 1; i++) {
+      if(workingtimes[i].user_id == this.currentUser.id) {
+        user_workingtimes.push(workingtimes[i])
+        console.log("GETTINGIN")
+      }
+    }
+    this.user_workingtimes = user_workingtimes
+    this.user = this.get_datasets(this.user_workingtimes)
   }
   increment_week_nbr() {
     this.week_nbr++
-    this.currentUser["workingtimes"] = [
-      {
-        "start": "2012-04-23T08:25:43.511Z",
-        "end": "2012-04-23T18:25:43.511Z"
-      },
-      {
-        "start": "2012-04-24T08:25:43.511Z",
-        "end": "2012-04-24T16:25:43.511Z"
-      },
-      {
-        "start": "2012-04-25T10:25:43.511Z",
-        "end": "2012-04-25T15:25:43.511Z"
-      },
-      {
-        "start": "2012-04-27T10:25:43.511Z",
-        "end": "2012-04-27T17:25:43.511Z"
-      },
-      {
-        "start": "2012-04-28T06:25:43.511Z",
-        "end": "2012-04-28T23:25:43.511Z"
-      },
-      {
-        "start": "2012-05-01T10:25:43.511Z",
-        "end": "2012-05-01T12:25:43.511Z"
-      },
-      {
-        "start": "2012-05-02T10:25:43.511Z",
-        "end": "2012-05-02T14:25:43.511Z"
-      },
-      {
-        "start": "2012-05-02T15:25:43.511Z",
-        "end": "2012-05-02T17:25:43.511Z"
-      },
-    ]
-    this.get_datasets(this.currentUser)
+    this.get_datasets(this.user_workingtimes)
   }
   decrement_week_nbr() {
     this.week_nbr--
-    this.currentUser["workingtimes"] = [
-      {
-        "start": "2012-04-23T08:25:43.511Z",
-        "end": "2012-04-23T18:25:43.511Z"
-      },
-      {
-        "start": "2012-04-24T08:25:43.511Z",
-        "end": "2012-04-24T16:25:43.511Z"
-      },
-      {
-        "start": "2012-04-25T10:25:43.511Z",
-        "end": "2012-04-25T15:25:43.511Z"
-      },
-      {
-        "start": "2012-04-27T10:25:43.511Z",
-        "end": "2012-04-27T17:25:43.511Z"
-      },
-      {
-        "start": "2012-04-28T06:25:43.511Z",
-        "end": "2012-04-28T23:25:43.511Z"
-      },
-      {
-        "start": "2012-05-01T10:25:43.511Z",
-        "end": "2012-05-01T12:25:43.511Z"
-      },
-      {
-        "start": "2012-05-02T10:25:43.511Z",
-        "end": "2012-05-02T14:25:43.511Z"
-      },
-      {
-        "start": "2012-05-02T15:25:43.511Z",
-        "end": "2012-05-02T17:25:43.511Z"
-      },
-    ]
-    this.get_datasets(this.currentUser)
+    this.get_datasets(this.user_workingtimes)
   }
   get_datasets(datasets) {
     const day_start = 8 + 2
@@ -177,8 +87,8 @@ export default class DashboardPage extends Vue {
     let week = [];
     var last_day = 0
     var day_nbr =  0
-    while(i != datasets.workingtimes.length) {
-      let workingtime = datasets.workingtimes[i]
+    while(i != datasets.length) {
+      let workingtime = datasets[i]
       let start = new Date(workingtime.start)
       let end = new Date(workingtime.end)
       if(start.getHours() < day_start - 1) {
@@ -196,8 +106,8 @@ export default class DashboardPage extends Vue {
       week[day_nbr] = week[day_nbr] > 0
         ? week[day_nbr] + (end - start) / (1000 * 3600)
         : (end - start) / (1000 * 3600)
-      if (last_day > day_nbr || i != datasets.workingtimes.length - 1) {
-        if(day_nbr > new Date(datasets.workingtimes[i+1].start).getDay() - 1) {
+      if (last_day > day_nbr || i != datasets.length - 1) {
+        if(day_nbr > new Date(datasets[i+1].start).getDay() - 1) {
           weeks.push(week)
           last_day = 0
           week = []
@@ -214,9 +124,9 @@ export default class DashboardPage extends Vue {
     var week_total = {
       total: 0
     }
-    if (this.week_nbr >= weeks.length) {
+    if (this.week_nbr >= weeks.length && datasets.length > 0) {
       this.week_nbr = weeks.length -1
-    } else if(this.week_nbr < 0) {
+    } else if(this.week_nbr < 0 || datasets.length == 0) {
       this.week_nbr = 0
     }
     var looked_week = weeks[this.week_nbr]
@@ -312,41 +222,10 @@ export default class DashboardPage extends Vue {
     this.loaded = true
   }
   isWorking() {
-    this.currentUser["workingtimes"] = [
-      {
-        "start": "2012-04-23T08:25:43.511Z",
-        "end": "2012-04-23T18:25:43.511Z"
-      },
-      {
-        "start": "2012-04-24T08:25:43.511Z",
-        "end": "2012-04-24T16:25:43.511Z"
-      },
-      {
-        "start": "2012-04-25T10:25:43.511Z",
-        "end": "2012-04-25T15:25:43.511Z"
-      },
-      {
-        "start": "2012-04-27T10:25:43.511Z",
-        "end": "2012-04-27T17:25:43.511Z"
-      },
-      {
-        "start": "2012-04-28T06:25:43.511Z",
-        "end": "2012-04-28T23:25:43.511Z"
-      },
-      {
-        "start": "2012-05-01T10:25:43.511Z",
-        "end": "2012-05-01T12:25:43.511Z"
-      },
-      {
-        "start": "2012-05-02T10:25:43.511Z",
-        "end": "2012-05-02T14:25:43.511Z"
-      },
-      {
-        "start": "2012-05-02T15:25:43.511Z",
-        "end": "2012-05-02T15:25:43.511Z"
-      },
-    ]
-    return !this.currentUser.workingtimes[this.currentUser["workingtimes"].length-1].end
+    if(this.user_workingtimes.length > 0) {
+      return !this.user_workingtimes[this.user_workingtimes.length-1].end
+    }
+    return false
   }
 }
 </script>
