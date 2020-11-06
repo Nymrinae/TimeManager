@@ -13,6 +13,13 @@ defmodule ServerWeb.SessionView do
     }
   end
 
+  def render("success.json", %{message: message}) do
+    %{
+      status: 200,
+      message: message
+    }
+  end
+
   def render("error.json", %{message: message}) do
     %{
       status: :bad_request,

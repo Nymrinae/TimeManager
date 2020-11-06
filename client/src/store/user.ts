@@ -7,6 +7,7 @@ import { Module, VuexModule, VuexMutation } from 'nuxt-property-decorator'
 export default class UserModule extends VuexModule {
   currentUser: User | null = null
   editableUser: any = null
+  deletableUser: any = null
 
   @VuexMutation setUser(user: User) {
     this.currentUser = user
@@ -14,5 +15,9 @@ export default class UserModule extends VuexModule {
 
   @VuexMutation setEditableUser(user) {
     this.editableUser = user
+  }
+
+  @VuexMutation setDeletableUser(user) {
+    this.deletableUser = user
   }
 }

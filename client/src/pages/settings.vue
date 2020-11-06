@@ -7,7 +7,10 @@
 <script lang="ts">
 import { Vue, Component } from 'nuxt-property-decorator'
 
-@Component({ layout: 'dashboard' })
+@Component({
+  layout: 'dashboard',
+  middleware: 'auth'
+})
 export default class SettingsPage extends Vue {
 
 }
