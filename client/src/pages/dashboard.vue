@@ -201,7 +201,6 @@ export default class DashboardPage extends Vue {
           weeks.push(week)
           last_day = 0
           week = []
-          console.log(night_hours)
           night_hours_weeks.push(night_hours)
           night_hours = 0
         }
@@ -226,7 +225,6 @@ export default class DashboardPage extends Vue {
         week_total["total"] += looked_week[j]
       }
     }
-    console.log("Night hours wwek", night_hours_weeks)
     week_total["over_time"] = (week_total["total"] - max_hour > 0) ? week_total["total"] - max_hour : 0
     week_total["normal_time"] = week_total["total"] - week_total["over_time"]
     this.datasets = datasets
@@ -277,7 +275,6 @@ export default class DashboardPage extends Vue {
       ]
     }
 
-    console.log("week_nbr", this.week_nbr)
     this.barChartOptions = {
       responsive: true,
       legend: {

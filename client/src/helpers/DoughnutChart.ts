@@ -12,19 +12,6 @@ export default {
   },
   watch: {
     chartData: function(val, old_val) {
-      console.log(this.ctx)
-      console.log("ONCHAFE")
-      // var canvas = document.querySelectorAll('canvas')[1]
-      // console.log(canvas)
-      // canvas = null
-      if(this.ctx != null) {
-        this.ctx = null
-      }
-      // this.this.ctx.delete()
-      // this.chart.update()
-      // Chart.plugins.unregister(this.chartdata);
-      // this.renderChart(val, this.options)
-      // this.textCenter("", "")
       this.textCenter(val.total, val.night_hours)
     }
   },
@@ -38,9 +25,6 @@ export default {
         beforeDraw: function(chart) {
           var width = chart.chart.width;
           var height = chart.chart.height;
-          // if (this.ctx != null) {
-          //   this.ctx = null
-          // }
           this.ctx = chart.chart.ctx;
           this.ctx.clearRect(0, 0, chart.width, chart.height);
           this.ctx.restore();
@@ -65,8 +49,6 @@ export default {
 
           this.ctx.fillText(text, textX, textY);
           this.ctx.save();
-          // this.ctx = this.ctx
-          // console.log(this.ctx)
          }
        });
        Chart.plugins.unregister(this.chartdata);
