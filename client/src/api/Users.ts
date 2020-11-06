@@ -50,6 +50,10 @@ const updateUser = async (userId: number, userInfos: UserInfo) => {
   const { data } = await $axios.put(`/users/${userId}`, userInfos)
 }
 
+const logoutUser = async () => {
+  const { data } = await $axios.get('/logout')
+}
+
 export {
   createUser,
   deleteUser,
@@ -58,5 +62,6 @@ export {
   getUserByInfos,
   loginUser,
   registerUser,
-  updateUser
+  updateUser,
+  logoutUser
 }

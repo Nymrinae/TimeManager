@@ -40,7 +40,10 @@
 <script lang="ts">
 import { Vue, Component } from 'nuxt-property-decorator'
 
-@Component({ layout: 'dashboard' })
+@Component({
+  layout: 'dashboard',
+  middleware: ['auth', 'admin']
+})
 export default class Teams extends Vue {
   teams = [
   {

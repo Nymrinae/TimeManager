@@ -33,5 +33,6 @@ defmodule ServerWeb.SessionController do
     conn
     |> Guardian.Plug.sign_out()
     |> put_status(200)
+    |> render("success.json", message: "Logged out!")
   end
 end

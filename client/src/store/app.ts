@@ -9,6 +9,7 @@ export default class AppModule extends VuexModule {
   modalType: ModalType = 'create'
   sidebarOpen: boolean = false
   showUserModal: boolean = false
+  confirmationPopUpState: boolean = false
 
   @VuexMutation changeSidebarState() {
     this.sidebarOpen = !this.sidebarOpen
@@ -20,6 +21,10 @@ export default class AppModule extends VuexModule {
 
   @VuexMutation changeUserModalState() {
     this.showUserModal = !this.showUserModal
+  }
+
+  @VuexMutation changeConfirmationPopUpState() {
+    this.confirmationPopUpState = !this.confirmationPopUpState
   }
 
   @VuexMutation searchUser(user: Event) {
