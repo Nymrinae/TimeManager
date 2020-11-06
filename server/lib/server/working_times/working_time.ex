@@ -15,8 +15,8 @@ defmodule Server.WorkingTimes.WorkingTime do
   @doc false
   def changeset(working_time, attrs) do
     working_time
-    |> cast(attrs, [:start, :end, :user_id])
-    |> validate_required([:start, :end, :user_id])
+    |> cast(attrs, [:start, :user_id])
+    |> validate_required([:start, :user_id])
     # |> cast_assoc(:user)
   end
 end

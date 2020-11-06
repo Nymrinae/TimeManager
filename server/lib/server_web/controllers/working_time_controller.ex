@@ -11,7 +11,7 @@ defmodule ServerWeb.WorkingTimeController do
     start_time = Map.get(params, "start", nil)
     end_time = Map.get(params, "end", nil)
 
-    if id != nil && start_time != nil && end_time != nil do
+    if (id != nil && start_time != nil && end_time != nil) do
       workingtime = WorkingTime.get_working_time_by_queries(id, start_time, end_time)
       render(conn, "show.json", workingtime: workingtime)
     else
@@ -24,7 +24,6 @@ defmodule ServerWeb.WorkingTimeController do
     with {:ok, %WorkingTime{} = working_time} <- WorkingTimes.create_working_time(working_time_params) do
       conn
       |> put_status(:created)
-      |> put_resp_header("location", Routes.working_time_path(conn, :index, working_time))
       |> render("working_time.json", working_time: working_time)
     end
   end

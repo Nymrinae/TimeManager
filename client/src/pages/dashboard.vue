@@ -2,9 +2,11 @@
   <div>
     <Header :message="`WorkingTimes Dashboard of ${currentUser.username}!`" />
     <button
-    class="bg-red-500 hover:bg-red-600 focus:outline-none rounded-lg px-6 py-2 text-white font-semibold shadow"
+      class="bg-red-500 hover:bg-red-600 focus:outline-none rounded-lg px-6 py-2 text-white font-semibold shadow"
+      :class="{'bg-green-500 hover:bg-green-600': isWorking }"
+      @click="setWorkingTime"
     >
-    {{ this.isWorking() ? "Working" : "Not Working" }}
+    {{ this.isWorking ? "Working" : "Not Working" }}
     </button>
     <DoughnutChart v-if="loaded" :chartData="doughnutData" :options="doughnutOptions" :height="50" />
     <BarChart v-if="loaded" :chartData="barChartData" :options="barChartOptions" :height="100" />
@@ -29,6 +31,7 @@
 // @ts-nocheck
 import BarChart from "../helpers/BarChart"
 import DoughnutChart from "../helpers/DoughnutChart"
+import { createWorkingTime } from '../api/WorkingTimes'
 import { Component, Vue, namespace } from "nuxt-property-decorator"
 import { getWorkingTimes } from '../api/WorkingTimes'
 
@@ -53,6 +56,7 @@ export default class DashboardPage extends Vue {
   loaded = false
   week_nbr: number = 0
   user_workingtimes: any = {}
+  isWorking: boolean = false
 
   async mounted() {
     var workingtimes = await getWorkingTimes()
@@ -67,6 +71,21 @@ export default class DashboardPage extends Vue {
     this.user_workingtimes = user_workingtimes
     this.user = this.get_datasets(this.user_workingtimes)
   }
+
+  async setWorkingTime() {
+    if (!this.isWorking) {
+      await createWorkingTime({
+        start: new Date().toISOString(),
+        end: null,
+        user_id: this.currentUser.id
+      })
+
+      this.isWorking = true
+    } else {
+      this.isWorking = false
+    }
+  }
+
   increment_week_nbr() {
     this.week_nbr++
     this.get_datasets(this.user_workingtimes)
@@ -221,12 +240,12 @@ export default class DashboardPage extends Vue {
     }
     this.loaded = true
   }
-  isWorking() {
-    if(this.user_workingtimes.length > 0) {
+  /* isWorking() {
+    if (this.user_workingtimes.length > 0) {
       return !this.user_workingtimes[this.user_workingtimes.length-1].end
     }
     return false
-  }
+  } */
 }
 </script>
 

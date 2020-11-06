@@ -1,7 +1,11 @@
 import { $axios } from '@/helpers/axiosInstance'
 
-const createWorkingTime = async () => {
+const createWorkingTime = async (workingTimeInfo) => {
+  await $axios.post('/workingtimes', {
+    "working_time": workingTimeInfo
+  })
 }
+
 
 const getWorkingTimes = async () => {
   const { data } = await $axios.get('/workingtimes')
